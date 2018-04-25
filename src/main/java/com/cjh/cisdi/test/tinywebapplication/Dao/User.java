@@ -39,7 +39,14 @@ public class User implements Serializable {
     
     public static void main( String[] args )
     {
-    	 args = new String[] { "-configfile", "src\\main\\resources\\generator.xml", "-overwrite" };
-	        ShellRunner.main(args);
+//    	 args = new String[] { "-configfile", "src\\main\\resources\\generator.xml", "-overwrite" };
+//	        ShellRunner.main(args);
+    	String filePath = "C:\\Users\\1606020155.xlsx";
+    	InputStream is = new FileInputStream(filePath);
+    	XSSFWorkbook wb = new XSSFWorkbook(is);
+    	XSSFSheet sheet = wb.getSheetAt(0);
+    	Row row=sheet.getRow(2);
+    	Cell cell=row.getCell(3);
+    	System.out.println(cell.getDateCellValue());
     }
 }
