@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloWorldController {
 
-	@RequestMapping("/")
+	@RequestMapping("/index")
 	public String index(Model model) {
 		model.addAttribute("singlePerson",new Object());
         model.addAttribute("people",new Object());
