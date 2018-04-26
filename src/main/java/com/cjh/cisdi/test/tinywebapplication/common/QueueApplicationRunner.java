@@ -21,10 +21,6 @@ public class QueueApplicationRunner implements ApplicationRunner{
 	
 	private static final Logger logger = LoggerFactory.getLogger(QueueApplicationRunner.class); 
 	
-	private static int FAIL_NO = 0;
-	
-	private static final int MAX_FAIL_NO = 2;
-	
 	private static final Integer THREAD_SIZE = 1;
 	
     @Override
@@ -33,23 +29,32 @@ public class QueueApplicationRunner implements ApplicationRunner{
     	ExecutorService executorService = new ThreadPoolExecutor(THREAD_SIZE, THREAD_SIZE, 0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<Runnable>());
     	
-    	try {
-    		executorService.execute(new Runnable() {
+    	executorService.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				// 当前失败次数
+				int fail_no = 0;
+				// 最大重试次数
+				int max_fail_no = 2;
 				
-				@Override
-				public void run() {
+				try {
+					// 消费队列，写入数据库
 					dataHanlder.queueProcessor();
-				}
-			});
-		} catch (Exception e) {
-			FAIL_NO++;
-			// 重试3次
-			if(FAIL_NO > MAX_FAIL_NO) {
-				logger.error("QueueApplicationRunner has shutdown");
-			}else {
-				run(null);
+				} catch (Exception e) {
+					fail_no++;
+					// 重试3次
+					if(fail_no > max_fail_no) {
+						logger.error("QueueApplicationRunner has shutdown");
+					}else {
+						dataHanlder.queueProcessor();
+					}
+				}	
+				
 			}
-		}	
+		});
+    	
+    	
     }
 
 }
