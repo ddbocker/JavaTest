@@ -23,7 +23,7 @@ public class UploadController {
 	@PostMapping("/upload") 
 	public String fileUpload(@RequestParam("file") MultipartFile file,
 	                               RedirectAttributes redirectAttributes) {
-	    //判断上传文件是否为空
+	    // 判断上传文件是否为空
 		if (file.isEmpty()) {
 	        redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
 	        return "redirect:uploadStatus";

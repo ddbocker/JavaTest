@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.ExcelUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapperExt;
 import com.cjh.cisdi.test.tinywebapplication.service.UserServiceImpl;
 
@@ -38,5 +39,11 @@ public class TinywebapplicationApplicationTests {
 		List<DataRecord> dataRecords = ExcelUtils.getDataListFromExcel(filePath);
 		int rel = dataBiz.dataPersistence(dataRecords);
 		Assert.assertTrue(rel > 0);
+	}
+	
+	@Test
+	public void test_page() {
+		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(1);
+		Assert.assertNotNull(rel);
 	}
 }
