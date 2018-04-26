@@ -3,6 +3,11 @@ package com.cjh.cisdi.test.tinywebapplication.common;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * 配置帮助类
+ * @author cjh
+ *
+ */
 @Component
 public class ConfigBean {
 	

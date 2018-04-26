@@ -1,34 +1,35 @@
-package com.cjh.cisdi.test.tinywebapplication.Dao;
+package com.cjh.cisdi.test.tinywebapplication.dao;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class DataRecord implements Serializable {
     private Integer id;
 
-    private Integer a1;
+    private BigDecimal a1;
 
-    private Integer a2;
+    private BigDecimal a2;
 
-    private Integer a3;
+    private BigDecimal a3;
 
-    private Integer a4;
+    private BigDecimal a4;
 
-    private Integer a5;
+    private BigDecimal a5;
 
-    private Integer a6;
+    private BigDecimal a6;
 
-    private Integer a7;
+    private BigDecimal a7;
 
-    private Integer a8;
+    private BigDecimal a8;
 
-    private Integer a9;
+    private BigDecimal a9;
 
-    private Integer a10;
+    private BigDecimal a10;
 
-    private Integer a11;
+    private BigDecimal a11;
 
-    private Integer a12;
+    private BigDecimal a12;
 
     private String quality;
 
@@ -46,99 +47,99 @@ public class DataRecord implements Serializable {
         this.id = id;
     }
 
-    public Integer getA1() {
+    public BigDecimal getA1() {
         return a1;
     }
 
-    public void setA1(Integer a1) {
+    public void setA1(BigDecimal a1) {
         this.a1 = a1;
     }
 
-    public Integer getA2() {
+    public BigDecimal getA2() {
         return a2;
     }
 
-    public void setA2(Integer a2) {
+    public void setA2(BigDecimal a2) {
         this.a2 = a2;
     }
 
-    public Integer getA3() {
+    public BigDecimal getA3() {
         return a3;
     }
 
-    public void setA3(Integer a3) {
+    public void setA3(BigDecimal a3) {
         this.a3 = a3;
     }
 
-    public Integer getA4() {
+    public BigDecimal getA4() {
         return a4;
     }
 
-    public void setA4(Integer a4) {
+    public void setA4(BigDecimal a4) {
         this.a4 = a4;
     }
 
-    public Integer getA5() {
+    public BigDecimal getA5() {
         return a5;
     }
 
-    public void setA5(Integer a5) {
+    public void setA5(BigDecimal a5) {
         this.a5 = a5;
     }
 
-    public Integer getA6() {
+    public BigDecimal getA6() {
         return a6;
     }
 
-    public void setA6(Integer a6) {
+    public void setA6(BigDecimal a6) {
         this.a6 = a6;
     }
 
-    public Integer getA7() {
+    public BigDecimal getA7() {
         return a7;
     }
 
-    public void setA7(Integer a7) {
+    public void setA7(BigDecimal a7) {
         this.a7 = a7;
     }
 
-    public Integer getA8() {
+    public BigDecimal getA8() {
         return a8;
     }
 
-    public void setA8(Integer a8) {
+    public void setA8(BigDecimal a8) {
         this.a8 = a8;
     }
 
-    public Integer getA9() {
+    public BigDecimal getA9() {
         return a9;
     }
 
-    public void setA9(Integer a9) {
+    public void setA9(BigDecimal a9) {
         this.a9 = a9;
     }
 
-    public Integer getA10() {
+    public BigDecimal getA10() {
         return a10;
     }
 
-    public void setA10(Integer a10) {
+    public void setA10(BigDecimal a10) {
         this.a10 = a10;
     }
 
-    public Integer getA11() {
+    public BigDecimal getA11() {
         return a11;
     }
 
-    public void setA11(Integer a11) {
+    public void setA11(BigDecimal a11) {
         this.a11 = a11;
     }
 
-    public Integer getA12() {
+    public BigDecimal getA12() {
         return a12;
     }
 
-    public void setA12(Integer a12) {
+    public void setA12(BigDecimal a12) {
         this.a12 = a12;
     }
 

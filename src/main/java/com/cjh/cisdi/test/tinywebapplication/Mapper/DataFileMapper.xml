@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjh.cisdi.test.tinywebapplication.Mapper.DataFileMapper" >
-  <resultMap id="BaseResultMap" type="com.cjh.cisdi.test.tinywebapplication.Dao.DataFile" >
+<mapper namespace="com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper" >
+  <resultMap id="BaseResultMap" type="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="filename" property="filename" jdbcType="VARCHAR" />
     <result column="filetype" property="filetype" jdbcType="VARCHAR" />
@@ -74,7 +74,7 @@
     id, filename, filetype, filesize, newfilename, managerid, managername, createtime, 
     updatetime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFileExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" >
     select
     <if test="distinct" >
       distinct
@@ -98,13 +98,13 @@
     delete from data_file
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFileExample" >
+  <delete id="deleteByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" >
     delete from data_file
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFile" >
+  <insert id="insert" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     insert into data_file (id, filename, filetype, 
       filesize, newfilename, managerid, 
       managername, createtime, updatetime
@@ -114,7 +114,7 @@
       #{managername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFile" >
+  <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     insert into data_file
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -175,7 +175,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFileExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" resultType="java.lang.Integer" >
     select count(*) from data_file
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -231,7 +231,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFile" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     update data_file
     <set >
       <if test="filename != null" >
@@ -261,7 +261,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cjh.cisdi.test.tinywebapplication.Dao.DataFile" >
+  <update id="updateByPrimaryKey" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     update data_file
     set filename = #{filename,jdbcType=VARCHAR},
       filetype = #{filetype,jdbcType=VARCHAR},

@@ -27,25 +27,25 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
          
-        <javaModelGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.Dao"
+        <javaModelGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.dao"
             targetProject="src/main/java">
             <!-- 是否针对string类型的字段在set的时候进行trim调用 -->
             <property name="trimStrings" value="true" />
             <property name="enableSubPackages" value="true" />
         </javaModelGenerator>
         
-        <sqlMapGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.Mapper" targetProject="src/main/java" />
+        <sqlMapGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.mapper" targetProject="src/main/java" />
         
-        <javaClientGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.Mapper"
+        <javaClientGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.mapper"
             targetProject="src/main/java" type="XMLMAPPER" />
 
-     <!--    <table tableName="data_record" domainObjectName="DataRecord" >
+     <table tableName="data_record" domainObjectName="DataRecord" >
 
         </table>
-         -->
-        <table tableName="data_file" domainObjectName="DataFile" >
+         
+        <!-- <table tableName="data_file" domainObjectName="DataFile" >
 
-        </table>
+        </table> -->
 
     </context>
 </generatorConfiguration>

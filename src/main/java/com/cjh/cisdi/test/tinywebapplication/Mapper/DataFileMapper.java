@@ -1,7 +1,7 @@
-package com.cjh.cisdi.test.tinywebapplication.Mapper;
+package com.cjh.cisdi.test.tinywebapplication.mapper;
 
-import com.cjh.cisdi.test.tinywebapplication.Dao.DataFile;
-import com.cjh.cisdi.test.tinywebapplication.Dao.DataFileExample;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

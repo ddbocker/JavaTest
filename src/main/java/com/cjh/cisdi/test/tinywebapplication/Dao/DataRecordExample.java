@@ -1,5 +1,6 @@
-package com.cjh.cisdi.test.tinywebapplication.Dao;
+package com.cjh.cisdi.test.tinywebapplication.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,52 +176,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA1EqualTo(Integer value) {
+        public Criteria andA1EqualTo(BigDecimal value) {
             addCriterion("a1 =", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1NotEqualTo(Integer value) {
+        public Criteria andA1NotEqualTo(BigDecimal value) {
             addCriterion("a1 <>", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1GreaterThan(Integer value) {
+        public Criteria andA1GreaterThan(BigDecimal value) {
             addCriterion("a1 >", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA1GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a1 >=", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1LessThan(Integer value) {
+        public Criteria andA1LessThan(BigDecimal value) {
             addCriterion("a1 <", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1LessThanOrEqualTo(Integer value) {
+        public Criteria andA1LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a1 <=", value, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1In(List<Integer> values) {
+        public Criteria andA1In(List<BigDecimal> values) {
             addCriterion("a1 in", values, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1NotIn(List<Integer> values) {
+        public Criteria andA1NotIn(List<BigDecimal> values) {
             addCriterion("a1 not in", values, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1Between(Integer value1, Integer value2) {
+        public Criteria andA1Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a1 between", value1, value2, "a1");
             return (Criteria) this;
         }
 
-        public Criteria andA1NotBetween(Integer value1, Integer value2) {
+        public Criteria andA1NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a1 not between", value1, value2, "a1");
             return (Criteria) this;
         }
@@ -235,52 +236,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA2EqualTo(Integer value) {
+        public Criteria andA2EqualTo(BigDecimal value) {
             addCriterion("a2 =", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2NotEqualTo(Integer value) {
+        public Criteria andA2NotEqualTo(BigDecimal value) {
             addCriterion("a2 <>", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2GreaterThan(Integer value) {
+        public Criteria andA2GreaterThan(BigDecimal value) {
             addCriterion("a2 >", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA2GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a2 >=", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2LessThan(Integer value) {
+        public Criteria andA2LessThan(BigDecimal value) {
             addCriterion("a2 <", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2LessThanOrEqualTo(Integer value) {
+        public Criteria andA2LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a2 <=", value, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2In(List<Integer> values) {
+        public Criteria andA2In(List<BigDecimal> values) {
             addCriterion("a2 in", values, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2NotIn(List<Integer> values) {
+        public Criteria andA2NotIn(List<BigDecimal> values) {
             addCriterion("a2 not in", values, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2Between(Integer value1, Integer value2) {
+        public Criteria andA2Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a2 between", value1, value2, "a2");
             return (Criteria) this;
         }
 
-        public Criteria andA2NotBetween(Integer value1, Integer value2) {
+        public Criteria andA2NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a2 not between", value1, value2, "a2");
             return (Criteria) this;
         }
@@ -295,52 +296,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA3EqualTo(Integer value) {
+        public Criteria andA3EqualTo(BigDecimal value) {
             addCriterion("a3 =", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3NotEqualTo(Integer value) {
+        public Criteria andA3NotEqualTo(BigDecimal value) {
             addCriterion("a3 <>", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3GreaterThan(Integer value) {
+        public Criteria andA3GreaterThan(BigDecimal value) {
             addCriterion("a3 >", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA3GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a3 >=", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3LessThan(Integer value) {
+        public Criteria andA3LessThan(BigDecimal value) {
             addCriterion("a3 <", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3LessThanOrEqualTo(Integer value) {
+        public Criteria andA3LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a3 <=", value, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3In(List<Integer> values) {
+        public Criteria andA3In(List<BigDecimal> values) {
             addCriterion("a3 in", values, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3NotIn(List<Integer> values) {
+        public Criteria andA3NotIn(List<BigDecimal> values) {
             addCriterion("a3 not in", values, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3Between(Integer value1, Integer value2) {
+        public Criteria andA3Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a3 between", value1, value2, "a3");
             return (Criteria) this;
         }
 
-        public Criteria andA3NotBetween(Integer value1, Integer value2) {
+        public Criteria andA3NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a3 not between", value1, value2, "a3");
             return (Criteria) this;
         }
@@ -355,52 +356,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA4EqualTo(Integer value) {
+        public Criteria andA4EqualTo(BigDecimal value) {
             addCriterion("a4 =", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4NotEqualTo(Integer value) {
+        public Criteria andA4NotEqualTo(BigDecimal value) {
             addCriterion("a4 <>", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4GreaterThan(Integer value) {
+        public Criteria andA4GreaterThan(BigDecimal value) {
             addCriterion("a4 >", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA4GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a4 >=", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4LessThan(Integer value) {
+        public Criteria andA4LessThan(BigDecimal value) {
             addCriterion("a4 <", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4LessThanOrEqualTo(Integer value) {
+        public Criteria andA4LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a4 <=", value, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4In(List<Integer> values) {
+        public Criteria andA4In(List<BigDecimal> values) {
             addCriterion("a4 in", values, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4NotIn(List<Integer> values) {
+        public Criteria andA4NotIn(List<BigDecimal> values) {
             addCriterion("a4 not in", values, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4Between(Integer value1, Integer value2) {
+        public Criteria andA4Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a4 between", value1, value2, "a4");
             return (Criteria) this;
         }
 
-        public Criteria andA4NotBetween(Integer value1, Integer value2) {
+        public Criteria andA4NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a4 not between", value1, value2, "a4");
             return (Criteria) this;
         }
@@ -415,52 +416,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA5EqualTo(Integer value) {
+        public Criteria andA5EqualTo(BigDecimal value) {
             addCriterion("a5 =", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5NotEqualTo(Integer value) {
+        public Criteria andA5NotEqualTo(BigDecimal value) {
             addCriterion("a5 <>", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5GreaterThan(Integer value) {
+        public Criteria andA5GreaterThan(BigDecimal value) {
             addCriterion("a5 >", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA5GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a5 >=", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5LessThan(Integer value) {
+        public Criteria andA5LessThan(BigDecimal value) {
             addCriterion("a5 <", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5LessThanOrEqualTo(Integer value) {
+        public Criteria andA5LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a5 <=", value, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5In(List<Integer> values) {
+        public Criteria andA5In(List<BigDecimal> values) {
             addCriterion("a5 in", values, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5NotIn(List<Integer> values) {
+        public Criteria andA5NotIn(List<BigDecimal> values) {
             addCriterion("a5 not in", values, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5Between(Integer value1, Integer value2) {
+        public Criteria andA5Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a5 between", value1, value2, "a5");
             return (Criteria) this;
         }
 
-        public Criteria andA5NotBetween(Integer value1, Integer value2) {
+        public Criteria andA5NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a5 not between", value1, value2, "a5");
             return (Criteria) this;
         }
@@ -475,52 +476,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA6EqualTo(Integer value) {
+        public Criteria andA6EqualTo(BigDecimal value) {
             addCriterion("a6 =", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6NotEqualTo(Integer value) {
+        public Criteria andA6NotEqualTo(BigDecimal value) {
             addCriterion("a6 <>", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6GreaterThan(Integer value) {
+        public Criteria andA6GreaterThan(BigDecimal value) {
             addCriterion("a6 >", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA6GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a6 >=", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6LessThan(Integer value) {
+        public Criteria andA6LessThan(BigDecimal value) {
             addCriterion("a6 <", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6LessThanOrEqualTo(Integer value) {
+        public Criteria andA6LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a6 <=", value, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6In(List<Integer> values) {
+        public Criteria andA6In(List<BigDecimal> values) {
             addCriterion("a6 in", values, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6NotIn(List<Integer> values) {
+        public Criteria andA6NotIn(List<BigDecimal> values) {
             addCriterion("a6 not in", values, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6Between(Integer value1, Integer value2) {
+        public Criteria andA6Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a6 between", value1, value2, "a6");
             return (Criteria) this;
         }
 
-        public Criteria andA6NotBetween(Integer value1, Integer value2) {
+        public Criteria andA6NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a6 not between", value1, value2, "a6");
             return (Criteria) this;
         }
@@ -535,52 +536,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA7EqualTo(Integer value) {
+        public Criteria andA7EqualTo(BigDecimal value) {
             addCriterion("a7 =", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7NotEqualTo(Integer value) {
+        public Criteria andA7NotEqualTo(BigDecimal value) {
             addCriterion("a7 <>", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7GreaterThan(Integer value) {
+        public Criteria andA7GreaterThan(BigDecimal value) {
             addCriterion("a7 >", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA7GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a7 >=", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7LessThan(Integer value) {
+        public Criteria andA7LessThan(BigDecimal value) {
             addCriterion("a7 <", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7LessThanOrEqualTo(Integer value) {
+        public Criteria andA7LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a7 <=", value, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7In(List<Integer> values) {
+        public Criteria andA7In(List<BigDecimal> values) {
             addCriterion("a7 in", values, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7NotIn(List<Integer> values) {
+        public Criteria andA7NotIn(List<BigDecimal> values) {
             addCriterion("a7 not in", values, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7Between(Integer value1, Integer value2) {
+        public Criteria andA7Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a7 between", value1, value2, "a7");
             return (Criteria) this;
         }
 
-        public Criteria andA7NotBetween(Integer value1, Integer value2) {
+        public Criteria andA7NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a7 not between", value1, value2, "a7");
             return (Criteria) this;
         }
@@ -595,52 +596,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA8EqualTo(Integer value) {
+        public Criteria andA8EqualTo(BigDecimal value) {
             addCriterion("a8 =", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8NotEqualTo(Integer value) {
+        public Criteria andA8NotEqualTo(BigDecimal value) {
             addCriterion("a8 <>", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8GreaterThan(Integer value) {
+        public Criteria andA8GreaterThan(BigDecimal value) {
             addCriterion("a8 >", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA8GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a8 >=", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8LessThan(Integer value) {
+        public Criteria andA8LessThan(BigDecimal value) {
             addCriterion("a8 <", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8LessThanOrEqualTo(Integer value) {
+        public Criteria andA8LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a8 <=", value, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8In(List<Integer> values) {
+        public Criteria andA8In(List<BigDecimal> values) {
             addCriterion("a8 in", values, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8NotIn(List<Integer> values) {
+        public Criteria andA8NotIn(List<BigDecimal> values) {
             addCriterion("a8 not in", values, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8Between(Integer value1, Integer value2) {
+        public Criteria andA8Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a8 between", value1, value2, "a8");
             return (Criteria) this;
         }
 
-        public Criteria andA8NotBetween(Integer value1, Integer value2) {
+        public Criteria andA8NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a8 not between", value1, value2, "a8");
             return (Criteria) this;
         }
@@ -655,52 +656,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA9EqualTo(Integer value) {
+        public Criteria andA9EqualTo(BigDecimal value) {
             addCriterion("a9 =", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9NotEqualTo(Integer value) {
+        public Criteria andA9NotEqualTo(BigDecimal value) {
             addCriterion("a9 <>", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9GreaterThan(Integer value) {
+        public Criteria andA9GreaterThan(BigDecimal value) {
             addCriterion("a9 >", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA9GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a9 >=", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9LessThan(Integer value) {
+        public Criteria andA9LessThan(BigDecimal value) {
             addCriterion("a9 <", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9LessThanOrEqualTo(Integer value) {
+        public Criteria andA9LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a9 <=", value, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9In(List<Integer> values) {
+        public Criteria andA9In(List<BigDecimal> values) {
             addCriterion("a9 in", values, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9NotIn(List<Integer> values) {
+        public Criteria andA9NotIn(List<BigDecimal> values) {
             addCriterion("a9 not in", values, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9Between(Integer value1, Integer value2) {
+        public Criteria andA9Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a9 between", value1, value2, "a9");
             return (Criteria) this;
         }
 
-        public Criteria andA9NotBetween(Integer value1, Integer value2) {
+        public Criteria andA9NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a9 not between", value1, value2, "a9");
             return (Criteria) this;
         }
@@ -715,52 +716,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA10EqualTo(Integer value) {
+        public Criteria andA10EqualTo(BigDecimal value) {
             addCriterion("a10 =", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10NotEqualTo(Integer value) {
+        public Criteria andA10NotEqualTo(BigDecimal value) {
             addCriterion("a10 <>", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10GreaterThan(Integer value) {
+        public Criteria andA10GreaterThan(BigDecimal value) {
             addCriterion("a10 >", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA10GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a10 >=", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10LessThan(Integer value) {
+        public Criteria andA10LessThan(BigDecimal value) {
             addCriterion("a10 <", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10LessThanOrEqualTo(Integer value) {
+        public Criteria andA10LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a10 <=", value, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10In(List<Integer> values) {
+        public Criteria andA10In(List<BigDecimal> values) {
             addCriterion("a10 in", values, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10NotIn(List<Integer> values) {
+        public Criteria andA10NotIn(List<BigDecimal> values) {
             addCriterion("a10 not in", values, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10Between(Integer value1, Integer value2) {
+        public Criteria andA10Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a10 between", value1, value2, "a10");
             return (Criteria) this;
         }
 
-        public Criteria andA10NotBetween(Integer value1, Integer value2) {
+        public Criteria andA10NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a10 not between", value1, value2, "a10");
             return (Criteria) this;
         }
@@ -775,52 +776,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA11EqualTo(Integer value) {
+        public Criteria andA11EqualTo(BigDecimal value) {
             addCriterion("a11 =", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11NotEqualTo(Integer value) {
+        public Criteria andA11NotEqualTo(BigDecimal value) {
             addCriterion("a11 <>", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11GreaterThan(Integer value) {
+        public Criteria andA11GreaterThan(BigDecimal value) {
             addCriterion("a11 >", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA11GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a11 >=", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11LessThan(Integer value) {
+        public Criteria andA11LessThan(BigDecimal value) {
             addCriterion("a11 <", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11LessThanOrEqualTo(Integer value) {
+        public Criteria andA11LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a11 <=", value, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11In(List<Integer> values) {
+        public Criteria andA11In(List<BigDecimal> values) {
             addCriterion("a11 in", values, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11NotIn(List<Integer> values) {
+        public Criteria andA11NotIn(List<BigDecimal> values) {
             addCriterion("a11 not in", values, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11Between(Integer value1, Integer value2) {
+        public Criteria andA11Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a11 between", value1, value2, "a11");
             return (Criteria) this;
         }
 
-        public Criteria andA11NotBetween(Integer value1, Integer value2) {
+        public Criteria andA11NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a11 not between", value1, value2, "a11");
             return (Criteria) this;
         }
@@ -835,52 +836,52 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andA12EqualTo(Integer value) {
+        public Criteria andA12EqualTo(BigDecimal value) {
             addCriterion("a12 =", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12NotEqualTo(Integer value) {
+        public Criteria andA12NotEqualTo(BigDecimal value) {
             addCriterion("a12 <>", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12GreaterThan(Integer value) {
+        public Criteria andA12GreaterThan(BigDecimal value) {
             addCriterion("a12 >", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12GreaterThanOrEqualTo(Integer value) {
+        public Criteria andA12GreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("a12 >=", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12LessThan(Integer value) {
+        public Criteria andA12LessThan(BigDecimal value) {
             addCriterion("a12 <", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12LessThanOrEqualTo(Integer value) {
+        public Criteria andA12LessThanOrEqualTo(BigDecimal value) {
             addCriterion("a12 <=", value, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12In(List<Integer> values) {
+        public Criteria andA12In(List<BigDecimal> values) {
             addCriterion("a12 in", values, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12NotIn(List<Integer> values) {
+        public Criteria andA12NotIn(List<BigDecimal> values) {
             addCriterion("a12 not in", values, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12Between(Integer value1, Integer value2) {
+        public Criteria andA12Between(BigDecimal value1, BigDecimal value2) {
             addCriterion("a12 between", value1, value2, "a12");
             return (Criteria) this;
         }
 
-        public Criteria andA12NotBetween(Integer value1, Integer value2) {
+        public Criteria andA12NotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("a12 not between", value1, value2, "a12");
             return (Criteria) this;
         }

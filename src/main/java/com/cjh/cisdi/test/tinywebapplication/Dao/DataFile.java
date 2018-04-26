@@ -1,4 +1,4 @@
-package com.cjh.cisdi.test.tinywebapplication.Dao;
+package com.cjh.cisdi.test.tinywebapplication.dao;
 
 import java.io.Serializable;
 import java.util.Date;

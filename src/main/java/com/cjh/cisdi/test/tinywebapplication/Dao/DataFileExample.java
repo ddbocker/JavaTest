@@ -1,4 +1,4 @@
-package com.cjh.cisdi.test.tinywebapplication.Dao;
+package com.cjh.cisdi.test.tinywebapplication.dao;
 
 import java.util.ArrayList;
 import java.util.Date;

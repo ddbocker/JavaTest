@@ -1,9 +1,9 @@
-package com.cjh.cisdi.test.tinywebapplication.Mapper;
+package com.cjh.cisdi.test.tinywebapplication.mapper;
 
 import java.util.List;
 
-import com.cjh.cisdi.test.tinywebapplication.Dao.User;
-import com.cjh.cisdi.test.tinywebapplication.Dao.UserExample;
+import com.cjh.cisdi.test.tinywebapplication.dao.User;
+import com.cjh.cisdi.test.tinywebapplication.dao.UserExample;
 
 public interface UserMapper {
     int countByExample(UserExample example);

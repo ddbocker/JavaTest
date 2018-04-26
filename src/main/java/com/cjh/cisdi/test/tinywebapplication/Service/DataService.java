@@ -1,6 +1,9 @@
-package com.cjh.cisdi.test.tinywebapplication.Service;
+package com.cjh.cisdi.test.tinywebapplication.service;
 
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cjh.cisdi.test.tinywebapplication.common.PageResult;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 
 public interface DataService {
 	/**
@@ -10,8 +13,9 @@ public interface DataService {
 	boolean fileUpload(MultipartFile file);
 	
 	/**
-	 * 添加分析数据记录
+	 * 分页获取数据
+	 * @param page
 	 * @return
 	 */
-	int addDataRecords();
+	PageResult<DataRecord> getDataRecordPageResult(Integer page);
 }
