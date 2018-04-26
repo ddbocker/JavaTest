@@ -44,7 +44,7 @@ public class TinywebapplicationApplicationTests {
 	
 	@Test
 	public void test_page() {
-		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(1);
+		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(4);
 		Assert.assertNotNull(rel);
 	}
 	

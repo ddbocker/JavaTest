@@ -141,7 +141,9 @@ public class PageInterceptor implements Interceptor {
         StringBuilder pageSql = new StringBuilder(200);
         String beginrow = String.valueOf((page.getPageNum() - 1) * page.getPageSize());  
         pageSql.append(sql);  
-        pageSql.append(" limit " + beginrow + "," + page.getPageSize());  
+        /* 数据量大时，效率低  pageSql.append(" limit " + beginrow + "," + page.getPageSize());*/
+        // 暂时只能对特定表，特定sql进行分页
+        pageSql.append(" WHERE id >= (SELECT id FROM data_record LIMIT " + beginrow + ",1) LIMIT " +  page.getPageSize());
         return pageSql.toString();
     }
 
