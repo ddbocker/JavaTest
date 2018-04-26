@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.activation.DataHandler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.BusinessException;
 import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
+import com.cjh.cisdi.test.tinywebapplication.common.DataHanlder;
 import com.cjh.cisdi.test.tinywebapplication.common.ExcelUtils;
 import com.cjh.cisdi.test.tinywebapplication.common.FileUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
@@ -69,14 +72,8 @@ public class DataServiceImpl implements DataService{
 	        	throw new BusinessException("文件上传记录写入数据库失败");
 	        };
 	        
-	        // 从文件中获取数据list
-	        List<DataRecord> dataRecords = ExcelUtils.getDataListFromExcel(pathString);
-	        
-	        //写入数据库
-	        if(dataBiz.dataPersistence(dataRecords) < 1) {
-	        	logger.error(file.getOriginalFilename() + "datarecord insert fail");
-	        	throw new BusinessException("文件数据写入数据库失败");
-	        }
+	        // 添加到队列
+	        DataHanlder.DATA_FILE_QUEUE.offer(dataFile);
 	    } catch (IOException e) {
 	    	logger.error(file.getOriginalFilename() + "upload fail",e);
         	throw new BusinessException("上传文件读取失败");
