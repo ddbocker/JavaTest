@@ -15,9 +15,9 @@ public class UploadController {
 	@Autowired
 	DataService dataService;
 	
-	@GetMapping("/")
-	public String index() {
-	    return "upload";
+	@GetMapping("/pageupload")
+	public String pageUpload() {
+		return "upload";
 	}
 	
 	@PostMapping("/upload") 
@@ -34,7 +34,7 @@ public class UploadController {
 		                "You successfully uploaded '" + file.getOriginalFilename() + "'");
 		}
 		 
-	    return "redirect:/uploadStatus";
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/uploadStatus")

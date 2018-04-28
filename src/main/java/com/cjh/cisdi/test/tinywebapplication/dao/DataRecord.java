@@ -33,6 +33,8 @@ public class DataRecord implements Serializable {
 
     private String quality;
 
+    private Integer fileRecordid;
+
     private Date createtime;
 
     private Date updatetime;
@@ -149,6 +151,14 @@ public class DataRecord implements Serializable {
 
     public void setQuality(String quality) {
         this.quality = quality == null ? null : quality.trim();
+    }
+
+    public Integer getFileRecordid() {
+        return fileRecordid;
+    }
+
+    public void setFileRecordid(Integer fileRecordid) {
+        this.fileRecordid = fileRecordid;
     }
 
     public Date getCreatetime() {

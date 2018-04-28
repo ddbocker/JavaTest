@@ -12,6 +12,8 @@ public class DataFile implements Serializable {
 
     private Long filesize;
 
+    private String filepath;
+
     private String newfilename;
 
     private Integer managerid;
@@ -54,6 +56,14 @@ public class DataFile implements Serializable {
 
     public void setFilesize(Long filesize) {
         this.filesize = filesize;
+    }
+
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath == null ? null : filepath.trim();
     }
 
     public String getNewfilename() {

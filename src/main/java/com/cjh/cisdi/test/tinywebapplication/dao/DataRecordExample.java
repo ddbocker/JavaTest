@@ -956,6 +956,66 @@ public class DataRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andFileRecordidIsNull() {
+            addCriterion("file_recordid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidIsNotNull() {
+            addCriterion("file_recordid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidEqualTo(Integer value) {
+            addCriterion("file_recordid =", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidNotEqualTo(Integer value) {
+            addCriterion("file_recordid <>", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidGreaterThan(Integer value) {
+            addCriterion("file_recordid >", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("file_recordid >=", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidLessThan(Integer value) {
+            addCriterion("file_recordid <", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidLessThanOrEqualTo(Integer value) {
+            addCriterion("file_recordid <=", value, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidIn(List<Integer> values) {
+            addCriterion("file_recordid in", values, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidNotIn(List<Integer> values) {
+            addCriterion("file_recordid not in", values, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidBetween(Integer value1, Integer value2) {
+            addCriterion("file_recordid between", value1, value2, "fileRecordid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFileRecordidNotBetween(Integer value1, Integer value2) {
+            addCriterion("file_recordid not between", value1, value2, "fileRecordid");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatetimeIsNull() {
             addCriterion("createtime is null");
             return (Criteria) this;

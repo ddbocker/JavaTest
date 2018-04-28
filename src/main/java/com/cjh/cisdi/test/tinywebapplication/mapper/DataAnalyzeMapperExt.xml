@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjh.cisdi.test.tinywebapplication.mapper.DataAnalyzeMapperExt" >
+   <!-- 批量写入数据记录表 -->
+  <insert id="insert" useGeneratedKeys="true" parameterType="java.util.List">
+  	 <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into data_analyze (file_recordid, column_name, column_type, avg, std, ns, factor)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.fileRecordid,jdbcType=INTEGER}, #{item.columnName,jdbcType=VARCHAR}, 
+      #{item.columnType,jdbcType=INTEGER}, #{item.avg,jdbcType=DECIMAL}, #{item.std,jdbcType=DECIMAL}, 
+      #{item.ns,jdbcType=INTEGER}, #{item.factor,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+</mapper>

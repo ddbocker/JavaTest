@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper" >
-  <resultMap id="BaseResultMap" type="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
+<mapper namespace="com.cjh.cisdi.test.tinywebapplication.mapper.DataAnalyzeMapper" >
+  <resultMap id="BaseResultMap" type="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="filename" property="filename" jdbcType="VARCHAR" />
-    <result column="filetype" property="filetype" jdbcType="VARCHAR" />
-    <result column="filesize" property="filesize" jdbcType="BIGINT" />
-    <result column="filepath" property="filepath" jdbcType="VARCHAR" />
-    <result column="newfilename" property="newfilename" jdbcType="VARCHAR" />
-    <result column="managerid" property="managerid" jdbcType="INTEGER" />
-    <result column="managername" property="managername" jdbcType="VARCHAR" />
+    <result column="file_recordid" property="fileRecordid" jdbcType="INTEGER" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+    <result column="column_type" property="columnType" jdbcType="INTEGER" />
+    <result column="avg" property="avg" jdbcType="DECIMAL" />
+    <result column="std" property="std" jdbcType="DECIMAL" />
+    <result column="ns" property="ns" jdbcType="INTEGER" />
+    <result column="factor" property="factor" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -72,16 +72,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, filename, filetype, filesize, filepath, newfilename, managerid, managername, 
-    createtime, updatetime
+    id, file_recordid, column_name, column_type, avg, std, ns, factor, createtime, updatetime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyzeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from data_file
+    from data_analyze
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,55 +91,55 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from data_file
+    from data_analyze
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from data_file
+    delete from data_analyze
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" >
-    delete from data_file
+  <delete id="deleteByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyzeExample" >
+    delete from data_analyze
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
-    insert into data_file (id, filename, filetype, 
-      filesize, filepath, newfilename, 
-      managerid, managername, createtime, 
+  <insert id="insert" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze" >
+    insert into data_analyze (id, file_recordid, column_name, 
+      column_type, avg, std, 
+      ns, factor, createtime, 
       updatetime)
-    values (#{id,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR}, 
-      #{filesize,jdbcType=BIGINT}, #{filepath,jdbcType=VARCHAR}, #{newfilename,jdbcType=VARCHAR}, 
-      #{managerid,jdbcType=INTEGER}, #{managername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{fileRecordid,jdbcType=INTEGER}, #{columnName,jdbcType=VARCHAR}, 
+      #{columnType,jdbcType=INTEGER}, #{avg,jdbcType=DECIMAL}, #{std,jdbcType=DECIMAL}, 
+      #{ns,jdbcType=INTEGER}, #{factor,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
       #{updatetime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-    insert into data_file
+  <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze" >
+    insert into data_analyze
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="filename != null" >
-        filename,
+      <if test="fileRecordid != null" >
+        file_recordid,
       </if>
-      <if test="filetype != null" >
-        filetype,
+      <if test="columnName != null" >
+        column_name,
       </if>
-      <if test="filesize != null" >
-        filesize,
+      <if test="columnType != null" >
+        column_type,
       </if>
-      <if test="filepath != null" >
-        filepath,
+      <if test="avg != null" >
+        avg,
       </if>
-      <if test="newfilename != null" >
-        newfilename,
+      <if test="std != null" >
+        std,
       </if>
-      <if test="managerid != null" >
-        managerid,
+      <if test="ns != null" >
+        ns,
       </if>
-      <if test="managername != null" >
-        managername,
+      <if test="factor != null" >
+        factor,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -153,26 +152,26 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="filename != null" >
-        #{filename,jdbcType=VARCHAR},
+      <if test="fileRecordid != null" >
+        #{fileRecordid,jdbcType=INTEGER},
       </if>
-      <if test="filetype != null" >
-        #{filetype,jdbcType=VARCHAR},
+      <if test="columnName != null" >
+        #{columnName,jdbcType=VARCHAR},
       </if>
-      <if test="filesize != null" >
-        #{filesize,jdbcType=BIGINT},
+      <if test="columnType != null" >
+        #{columnType,jdbcType=INTEGER},
       </if>
-      <if test="filepath != null" >
-        #{filepath,jdbcType=VARCHAR},
+      <if test="avg != null" >
+        #{avg,jdbcType=DECIMAL},
       </if>
-      <if test="newfilename != null" >
-        #{newfilename,jdbcType=VARCHAR},
+      <if test="std != null" >
+        #{std,jdbcType=DECIMAL},
       </if>
-      <if test="managerid != null" >
-        #{managerid,jdbcType=INTEGER},
+      <if test="ns != null" >
+        #{ns,jdbcType=INTEGER},
       </if>
-      <if test="managername != null" >
-        #{managername,jdbcType=VARCHAR},
+      <if test="factor != null" >
+        #{factor,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -182,38 +181,38 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" resultType="java.lang.Integer" >
-    select count(*) from data_file
+  <select id="countByExample" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyzeExample" resultType="java.lang.Integer" >
+    select count(*) from data_analyze
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update data_file
+    update data_analyze
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.filename != null" >
-        filename = #{record.filename,jdbcType=VARCHAR},
+      <if test="record.fileRecordid != null" >
+        file_recordid = #{record.fileRecordid,jdbcType=INTEGER},
       </if>
-      <if test="record.filetype != null" >
-        filetype = #{record.filetype,jdbcType=VARCHAR},
+      <if test="record.columnName != null" >
+        column_name = #{record.columnName,jdbcType=VARCHAR},
       </if>
-      <if test="record.filesize != null" >
-        filesize = #{record.filesize,jdbcType=BIGINT},
+      <if test="record.columnType != null" >
+        column_type = #{record.columnType,jdbcType=INTEGER},
       </if>
-      <if test="record.filepath != null" >
-        filepath = #{record.filepath,jdbcType=VARCHAR},
+      <if test="record.avg != null" >
+        avg = #{record.avg,jdbcType=DECIMAL},
       </if>
-      <if test="record.newfilename != null" >
-        newfilename = #{record.newfilename,jdbcType=VARCHAR},
+      <if test="record.std != null" >
+        std = #{record.std,jdbcType=DECIMAL},
       </if>
-      <if test="record.managerid != null" >
-        managerid = #{record.managerid,jdbcType=INTEGER},
+      <if test="record.ns != null" >
+        ns = #{record.ns,jdbcType=INTEGER},
       </if>
-      <if test="record.managername != null" >
-        managername = #{record.managername,jdbcType=VARCHAR},
+      <if test="record.factor != null" >
+        factor = #{record.factor,jdbcType=INTEGER},
       </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
@@ -227,44 +226,44 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update data_file
+    update data_analyze
     set id = #{record.id,jdbcType=INTEGER},
-      filename = #{record.filename,jdbcType=VARCHAR},
-      filetype = #{record.filetype,jdbcType=VARCHAR},
-      filesize = #{record.filesize,jdbcType=BIGINT},
-      filepath = #{record.filepath,jdbcType=VARCHAR},
-      newfilename = #{record.newfilename,jdbcType=VARCHAR},
-      managerid = #{record.managerid,jdbcType=INTEGER},
-      managername = #{record.managername,jdbcType=VARCHAR},
+      file_recordid = #{record.fileRecordid,jdbcType=INTEGER},
+      column_name = #{record.columnName,jdbcType=VARCHAR},
+      column_type = #{record.columnType,jdbcType=INTEGER},
+      avg = #{record.avg,jdbcType=DECIMAL},
+      std = #{record.std,jdbcType=DECIMAL},
+      ns = #{record.ns,jdbcType=INTEGER},
+      factor = #{record.factor,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
-    update data_file
+  <update id="updateByPrimaryKeySelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze" >
+    update data_analyze
     <set >
-      <if test="filename != null" >
-        filename = #{filename,jdbcType=VARCHAR},
+      <if test="fileRecordid != null" >
+        file_recordid = #{fileRecordid,jdbcType=INTEGER},
       </if>
-      <if test="filetype != null" >
-        filetype = #{filetype,jdbcType=VARCHAR},
+      <if test="columnName != null" >
+        column_name = #{columnName,jdbcType=VARCHAR},
       </if>
-      <if test="filesize != null" >
-        filesize = #{filesize,jdbcType=BIGINT},
+      <if test="columnType != null" >
+        column_type = #{columnType,jdbcType=INTEGER},
       </if>
-      <if test="filepath != null" >
-        filepath = #{filepath,jdbcType=VARCHAR},
+      <if test="avg != null" >
+        avg = #{avg,jdbcType=DECIMAL},
       </if>
-      <if test="newfilename != null" >
-        newfilename = #{newfilename,jdbcType=VARCHAR},
+      <if test="std != null" >
+        std = #{std,jdbcType=DECIMAL},
       </if>
-      <if test="managerid != null" >
-        managerid = #{managerid,jdbcType=INTEGER},
+      <if test="ns != null" >
+        ns = #{ns,jdbcType=INTEGER},
       </if>
-      <if test="managername != null" >
-        managername = #{managername,jdbcType=VARCHAR},
+      <if test="factor != null" >
+        factor = #{factor,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -275,15 +274,15 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
-    update data_file
-    set filename = #{filename,jdbcType=VARCHAR},
-      filetype = #{filetype,jdbcType=VARCHAR},
-      filesize = #{filesize,jdbcType=BIGINT},
-      filepath = #{filepath,jdbcType=VARCHAR},
-      newfilename = #{newfilename,jdbcType=VARCHAR},
-      managerid = #{managerid,jdbcType=INTEGER},
-      managername = #{managername,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze" >
+    update data_analyze
+    set file_recordid = #{fileRecordid,jdbcType=INTEGER},
+      column_name = #{columnName,jdbcType=VARCHAR},
+      column_type = #{columnType,jdbcType=INTEGER},
+      avg = #{avg,jdbcType=DECIMAL},
+      std = #{std,jdbcType=DECIMAL},
+      ns = #{ns,jdbcType=INTEGER},
+      factor = #{factor,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

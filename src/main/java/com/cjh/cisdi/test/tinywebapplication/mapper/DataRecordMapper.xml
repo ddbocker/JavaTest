@@ -16,6 +16,7 @@
     <result column="a11" property="a11" jdbcType="DECIMAL" />
     <result column="a12" property="a12" jdbcType="DECIMAL" />
     <result column="quality" property="quality" jdbcType="VARCHAR" />
+    <result column="file_recordid" property="fileRecordid" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -78,7 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, quality, createtime, updatetime
+    id, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, quality, file_recordid, createtime, 
+    updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample" >
     select
@@ -114,13 +116,13 @@
     insert into data_record (id, a1, a2, a3, 
       a4, a5, a6, a7, 
       a8, a9, a10, a11, 
-      a12, quality, createtime, 
-      updatetime)
+      a12, quality, file_recordid, 
+      createtime, updatetime)
     values (#{id,jdbcType=INTEGER}, #{a1,jdbcType=DECIMAL}, #{a2,jdbcType=DECIMAL}, #{a3,jdbcType=DECIMAL}, 
       #{a4,jdbcType=DECIMAL}, #{a5,jdbcType=DECIMAL}, #{a6,jdbcType=DECIMAL}, #{a7,jdbcType=DECIMAL}, 
       #{a8,jdbcType=DECIMAL}, #{a9,jdbcType=DECIMAL}, #{a10,jdbcType=DECIMAL}, #{a11,jdbcType=DECIMAL}, 
-      #{a12,jdbcType=DECIMAL}, #{quality,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+      #{a12,jdbcType=DECIMAL}, #{quality,jdbcType=VARCHAR}, #{fileRecordid,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataRecord" >
     insert into data_record
@@ -166,6 +168,9 @@
       </if>
       <if test="quality != null" >
         quality,
+      </if>
+      <if test="fileRecordid != null" >
+        file_recordid,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -216,6 +221,9 @@
       </if>
       <if test="quality != null" >
         #{quality,jdbcType=VARCHAR},
+      </if>
+      <if test="fileRecordid != null" >
+        #{fileRecordid,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -276,6 +284,9 @@
       <if test="record.quality != null" >
         quality = #{record.quality,jdbcType=VARCHAR},
       </if>
+      <if test="record.fileRecordid != null" >
+        file_recordid = #{record.fileRecordid,jdbcType=INTEGER},
+      </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
@@ -303,6 +314,7 @@
       a11 = #{record.a11,jdbcType=DECIMAL},
       a12 = #{record.a12,jdbcType=DECIMAL},
       quality = #{record.quality,jdbcType=VARCHAR},
+      file_recordid = #{record.fileRecordid,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -351,6 +363,9 @@
       <if test="quality != null" >
         quality = #{quality,jdbcType=VARCHAR},
       </if>
+      <if test="fileRecordid != null" >
+        file_recordid = #{fileRecordid,jdbcType=INTEGER},
+      </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
@@ -375,6 +390,7 @@
       a11 = #{a11,jdbcType=DECIMAL},
       a12 = #{a12,jdbcType=DECIMAL},
       quality = #{quality,jdbcType=VARCHAR},
+      file_recordid = #{fileRecordid,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

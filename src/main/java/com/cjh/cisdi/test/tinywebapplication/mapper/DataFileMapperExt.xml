@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapperExt" >
+  <resultMap id="BaseResultMap" type="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="filetype" property="filetype" jdbcType="VARCHAR" />
+    <result column="filesize" property="filesize" jdbcType="BIGINT" />
+    <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+    <result column="newfilename" property="newfilename" jdbcType="VARCHAR" />
+    <result column="managerid" property="managerid" jdbcType="INTEGER" />
+    <result column="managername" property="managername" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, filename, filetype, filesize, filepath, newfilename, managerid, managername, 
+    createtime, updatetime
+  </sql>
+  <!-- 悲观锁 -->
+  <select id="selectForLock" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from data_file
+    where id = #{id,jdbcType=INTEGER}
+    for update
+  </select>
+</mapper>

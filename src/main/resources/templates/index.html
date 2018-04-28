@@ -2,10 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
-<title>Hello world</title>
+<title>cisdi java test</title>
 </head>
 <body>
-	spring boot hello world
+	<table class="table" border="1">
+	<caption>文件列表</caption>
+	   <thead>
+	      <tr>
+	         <th>序号</th>
+	         <th>原文件名</th>
+	         <th>新文件名</th>
+	         <th>文件大小(byte)</th>
+	         <th>上传时间</th>
+	         <th>操作</th>
+	      </tr>
+	   </thead>
+	    <tbody>
+	      <tr th:each="file : ${fileList}"><!-- 其中m是个临时变量，像for(User u : userList)那样中的u-->
+	      	<td th:text="${file.id}"/> 
+	        <td th:text="${file.filename}"/>  
+	        <td th:text="${file.newfilename}"/>
+	        <td th:text="${file.filesize}"/>
+	        <td th:text="${#dates.format(file.createtime,'yyyy-MM-dd HH:mm:ss')}"/>
+	        <td>
+	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >下载</a>
+	        	<a href="http://localhost:8080" th:href="'/downloadbreak?fileId=' + ${file.id }" >断点下载</a>
+	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >样本分析</a>
+	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >数据详情</a>
+	        </td>
+	    </tr>  
+	   </tbody>
+	    
+	</table>   
+	
+	
+	<br>
+	
+	<br>
+	<a href="http://localhost:8080/pageupload">上传</a>
 </body>
 </html>

@@ -39,13 +39,17 @@
         <javaClientGenerator targetPackage="com.cjh.cisdi.test.tinywebapplication.mapper"
             targetProject="src/main/java" type="XMLMAPPER" />
 
-     <table tableName="data_record" domainObjectName="DataRecord" >
+     	 <!--<table tableName="data_record" domainObjectName="DataRecord" >
 
         </table>
          
-        <!-- <table tableName="data_file" domainObjectName="DataFile" >
+        <table tableName="data_file" domainObjectName="DataFile" >
 
         </table> -->
+        
+        <table tableName="data_analyze" domainObjectName="DataAnalyze" >
+			<columnOverride column="column_type" jdbcType="INTEGER" javaType="java.lang.Integer"></columnOverride>
+        </table>
 
     </context>
 </generatorConfiguration>

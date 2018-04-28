@@ -21,7 +21,7 @@ public class QueueApplicationRunner implements ApplicationRunner{
 	
 	private static final Logger logger = LoggerFactory.getLogger(QueueApplicationRunner.class); 
 	
-	private static final Integer THREAD_SIZE = 1;
+	private static final Integer THREAD_SIZE = 3;
 	
     @Override
     public void run(ApplicationArguments var1) throws Exception{
@@ -29,6 +29,7 @@ public class QueueApplicationRunner implements ApplicationRunner{
     	ExecutorService executorService = new ThreadPoolExecutor(THREAD_SIZE, THREAD_SIZE, 0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<Runnable>());
     	
+    	// 文件处理器
     	executorService.execute(new Runnable() {
 			
 			@Override
@@ -39,13 +40,13 @@ public class QueueApplicationRunner implements ApplicationRunner{
 				int max_fail_no = 2;
 				
 				try {
-					// 消费队列，写入数据库
+					// 消费文件队列，写入数据库
 					dataHanlder.queueProcessor();
 				} catch (Exception e) {
 					fail_no++;
 					// 重试3次
 					if(fail_no > max_fail_no) {
-						logger.error("QueueApplicationRunner has shutdown");
+						logger.error("QueueApplicationRunner file queue hanlder has shutdown");
 					}else {
 						dataHanlder.queueProcessor();
 					}
@@ -54,6 +55,33 @@ public class QueueApplicationRunner implements ApplicationRunner{
 			}
 		});
     	
+    	// 列表处理器
+    	for (int i = 0; i < THREAD_SIZE - 1; i++) {
+    		executorService.execute(new Runnable() {
+    			
+    			@Override
+    			public void run() {
+    				// 当前失败次数
+    				int fail_no = 0;
+    				// 最大重试次数
+    				int max_fail_no = 2;
+    				
+    				try {
+    					// 消费列表队列，写入数据库
+    					dataHanlder.dataListQueueProcessor();
+    				} catch (Exception e) {
+    					fail_no++;
+    					// 重试3次
+    					if(fail_no > max_fail_no) {
+    						logger.error("QueueApplicationRunner list queue hanlder has shutdown");
+    					}else {
+    						dataHanlder.dataListQueueProcessor();
+    					}
+    				}	
+    				
+    			}
+    		});
+		}
     	
     }
 

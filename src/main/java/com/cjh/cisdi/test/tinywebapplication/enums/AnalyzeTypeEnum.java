@@ -2,35 +2,35 @@ package com.cjh.cisdi.test.tinywebapplication.enums;
 
 
 /**
- * 文件类型枚举
+ * 数据分析类型枚举
  * @author cjh
  *
  */
-public enum FileTypeEnum {
-	/** .csv**/
-	TYPE_CSV(".csv"),
+public enum AnalyzeTypeEnum {
+	/** 数字**/
+	TYPE_NUM(0),
 
-	/** .xlsx **/
-	TYPE_XLSX(".xlsx");
+	/** 字符 **/
+	TYPE_CHAR(1);
 
 	/**
 	 * @Description: 构造方法
 	 * @param code
 	 *            响应码
 	 */
-	private FileTypeEnum(String code) {
+	private AnalyzeTypeEnum(Integer code) {
 		this.code = code;
 	}
 
 	/**
 	 * 响应码
 	 */
-	private String code = null;
+	private Integer code = null;
 
 	/**
 	 * @return code
 	 */
-	public String getCode() {
+	public Integer getCode() {
 		return code;
 	}
 
@@ -38,7 +38,7 @@ public enum FileTypeEnum {
 	 * @param code
 	 *            要设置的 code
 	 */
-	public void setCode(String code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 
@@ -51,12 +51,12 @@ public enum FileTypeEnum {
 	 * @return FileTypeEnum
 	 * @throws
 	 */
-	public static FileTypeEnum getEnumByCode(String code) {
+	public static AnalyzeTypeEnum getEnumByCode(Integer code) {
 		if (null == code) {
 			return null;
 		}
-		for (FileTypeEnum type : values()) {
-			if (type.getCode().equals(code.trim()))
+		for (AnalyzeTypeEnum type : values()) {
+			if (type.getCode().equals(code))
 				return type;
 		}
 		return null;
