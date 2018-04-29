@@ -108,8 +108,8 @@ public class DataBiz {
 			csvDataListProcces(dataFile);
 			return 1;
 		} 
-		// xlsx文件处理
-		xlsxDataListProcces(dataFile);
+		//xlsx文件处理
+		//xlsxDataListProcces(dataFile); 由于csv处理速度较xlsx快得多，不处理xlsx文件
 		return 1;
 	}
 	
@@ -202,6 +202,9 @@ public class DataBiz {
 		String filePath = dataFile.getFilepath() + dataFile.getNewfilename();
 		// 读取文件
 		CsvReader csvReader = null;
+		
+		// 计数器
+		int count = 0;
 		try {
 			csvReader = new CsvReader(filePath);
 			
@@ -226,8 +229,6 @@ public class DataBiz {
 				}
 			}
 			
-			// 计数器
-			int count = 0;
 			while (csvReader.readRecord()) {
 				count++;
 				// 累加
@@ -300,6 +301,14 @@ public class DataBiz {
 	        	throw new BusinessException("分析数据写入数据库失败");
 			};
 			logger.info("analyze data end:" + System.currentTimeMillis());
+		} catch (NumberFormatException numberFormatException) {
+			logger.error("file　`" +dataFile.getFilename() + "` numberFormat exception at line " + count,numberFormatException);
+			csvReader.close();
+			csvReader = null;
+			// 删除异常文件
+			CsvUtils.deleteFile(dataFile.getFilepath() + dataFile.getNewfilename());
+			// 删除文件记录
+			dataFileMapper.deleteByPrimaryKey(dataFile.getId());
 		} catch (IOException e) {
 			logger.error("csv file read fail",e);
 		}finally {

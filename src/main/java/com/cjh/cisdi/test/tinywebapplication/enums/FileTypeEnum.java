@@ -8,10 +8,7 @@ package com.cjh.cisdi.test.tinywebapplication.enums;
  */
 public enum FileTypeEnum {
 	/** .csv**/
-	TYPE_CSV(".csv"),
-
-	/** .xlsx **/
-	TYPE_XLSX(".xlsx");
+	TYPE_CSV(".csv");
 
 	/**
 	 * @Description: 构造方法

@@ -65,13 +65,13 @@ public class DataServiceImpl implements DataService{
 	        }   
 	        // 获取文件类型
 	        String fileType = FileUtils.getFileType(file.getOriginalFilename());
-	        //判断文件名，暂时只支持csv，xlsx
+	        //判断文件名，暂时只支持csv
 	        if(FileTypeEnum.getEnumByCode(fileType.toLowerCase()) == null) {
-	        	throw new BusinessException("暂时仅支持.csv,.xlsx格式");
+	        	throw new BusinessException("暂时仅支持.csv格式");
 	        }
 	        // 设置保存文件名
 	        String newfilename = System.currentTimeMillis() + "";
-	        String pathString = configBean.getUploadAddress() + System.currentTimeMillis() + fileType;
+	        String pathString = configBean.getUploadAddress() + newfilename + fileType;
 	        // 保存文件
 	        Path path = Paths.get(pathString);
 	        Files.write(path, bytes);
@@ -227,7 +227,7 @@ public class DataServiceImpl implements DataService{
 				i = bis.read(buffer);
 				count++;
 				// 抛出异常
-				if (count == 3) {
+				if (count == 2) {
 					throw new BusinessException("");
 				}
 			}
