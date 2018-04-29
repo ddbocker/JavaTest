@@ -302,7 +302,7 @@ public class DataBiz {
 			};
 			logger.info("analyze data end:" + System.currentTimeMillis());
 		} catch (NumberFormatException numberFormatException) {
-			logger.error("file　`" +dataFile.getFilename() + "` numberFormat exception at line " + count,numberFormatException);
+			logger.error("file　`" +dataFile.getFilename() + "` numberFormat exception at line " + (count + 1),numberFormatException);
 			csvReader.close();
 			csvReader = null;
 			// 删除异常文件
