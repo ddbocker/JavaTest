@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.service.DataService;
@@ -33,6 +34,12 @@ public class DataController {
 			model.addAttribute("fileList", dataFiles);
 		}
 	    return "index";
+	}
+	
+	@GetMapping("/deletefile")
+	public String deleteFile(@RequestParam("fileId") Integer fileId) {
+		dataService.deleteFile(fileId);
+		return "redirect:/index";
 	}
 	
 }

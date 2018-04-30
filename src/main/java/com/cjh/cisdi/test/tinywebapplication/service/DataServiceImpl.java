@@ -22,10 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.BusinessException;
 import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
+import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.common.DataHanlder;
 import com.cjh.cisdi.test.tinywebapplication.common.FileUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper;
@@ -282,5 +284,32 @@ public class DataServiceImpl implements DataService{
 	@Override
 	public List<DataFile> getDataFiles() {
 		return dataFileMapper.selectByExample(null);
+	}
+	
+	/**
+	 * 删除服务器文件
+	 */
+	@Override
+	public boolean deleteFile(Integer fileId) {
+		if(fileId == null) {
+			throw new BusinessException("文件记录id不能为空");
+		}
+		DataFile dataFile = dataFileMapper.selectByPrimaryKey(fileId);
+		if(dataFile == null) {
+			throw new BusinessException("无对应记录");
+		}
+		
+		if(!CsvUtils.deleteFile(dataFile.getFilepath() + dataFile.getNewfilename())) {
+			throw new BusinessException("删除服务器文件失败");
+		} 
+		// 更新文件记录状态
+		DataFile updateFile = new DataFile();
+		updateFile.setId(dataFile.getId());
+		updateFile.setStatus(FileStatusTypeEnum.TYPE_FAILED_AND_DELETE.getCode());
+		if(dataFileMapper.updateByPrimaryKeySelective(updateFile) < 1) {
+			logger.error("更新文件记录id" + updateFile.getId() + "状态失败");
+			throw new BusinessException("更新文件记录状态失败");
+		}			
+		return true;
 	}
 }

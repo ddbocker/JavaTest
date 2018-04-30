@@ -6,46 +6,91 @@ import java.util.Date;
 import java.util.List;
 
 public class DataAnalyzeExample {
+    /**
+     * data_analyze
+     */
     protected String orderByClause;
 
+    /**
+     * data_analyze
+     */
     protected boolean distinct;
 
+    /**
+     * data_analyze
+     */
     protected List<Criteria> oredCriteria;
 
+    /**
+     *
+     * @mbggenerated
+     */
     public DataAnalyzeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public String getOrderByClause() {
         return orderByClause;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public boolean isDistinct() {
         return distinct;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
         if (oredCriteria.size() == 0) {
@@ -54,17 +99,28 @@ public class DataAnalyzeExample {
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
     }
 
+    /**
+     * data_analyze null
+     */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -717,6 +773,9 @@ public class DataAnalyzeExample {
         }
     }
 
+    /**
+     * data_analyze
+     */
     public static class Criteria extends GeneratedCriteria {
 
         protected Criteria() {
@@ -724,6 +783,9 @@ public class DataAnalyzeExample {
         }
     }
 
+    /**
+     * data_analyze null
+     */
     public static class Criterion {
         private String condition;
 

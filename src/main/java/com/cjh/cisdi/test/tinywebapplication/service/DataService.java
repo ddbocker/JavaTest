@@ -45,4 +45,11 @@ public interface DataService {
 	 * @return
 	 */
 	void fileDownLoadBreak(Integer fileId,HttpServletResponse response);
+	
+	/**
+	 * 删除服务器文件
+	 * @param fileId
+	 * @return
+	 */
+	boolean deleteFile(Integer fileId);
 }

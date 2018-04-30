@@ -18,6 +18,7 @@
 	         <th>新文件名</th>
 	         <th>文件大小(byte)</th>
 	         <th>上传时间</th>
+	         <th>文件状态</th>
 	         <th>操作</th>
 	      </tr>
 	   </thead>
@@ -28,11 +29,25 @@
 	        <td th:text="${file.newfilename}"/>
 	        <td th:text="${file.filesize}"/>
 	        <td th:text="${#dates.format(file.createtime,'yyyy-MM-dd HH:mm:ss')}"/>
-	        <td>
-	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >下载</a>
-	        	<a href="http://localhost:8080" th:href="'/downloadbreak?fileId=' + ${file.id }" >断点下载</a>
-	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >样本分析</a>
-	        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id }" >数据详情</a>
+	        <td th:switch="${file.status}">
+	        	<p th:case="0">处理中</p>
+				<p th:case="1">处理成功</p>
+				<p th:case="2" th:text="${file.data}"></p>
+				<p th:case="3">服务器源文件已删除</p>
+	        </td>
+	        <td th:switch="${file.status}">
+	        	<p th:case="0">文件数据正在处理，请稍后</p>
+				<p th:case="1">
+					<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >下载</a>
+		        	<a href="http://localhost:8080" th:href="'/downloadbreak?fileId=' + ${file.id}" >断点下载</a>
+		        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >样本分析</a>
+		        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >数据详情</a>
+				</p>
+				<p th:case="2">
+					<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >下载</a>
+					<a href="http://localhost:8080" th:href="'/deletefile?fileId=' + ${file.id}" >删除</a>
+				</p>
+				<p th:case="3"></p>
 	        </td>
 	    </tr>  
 	   </tbody>

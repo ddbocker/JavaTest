@@ -26,8 +26,10 @@ import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
 import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
+import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
@@ -57,6 +59,11 @@ public class DataBiz {
 	 * 每页获取条数
 	 */
     private static final Integer DEFAULT_PAGE_SIZE = 50;
+    
+    /**
+     * 文件列数
+     */
+    private static final Integer COLUMN_SIZE = 13;
     
     /**
      * 每次插入数据行数
@@ -208,20 +215,19 @@ public class DataBiz {
 		try {
 			csvReader = new CsvReader(filePath);
 			
-			int columnSize = 13;
 			// 保存列名的数组
-            String[] columnNameArr =  new String[columnSize];
+            String[] columnNameArr =  new String[COLUMN_SIZE];
             
             // 保存数字列和的数组
-         	BigDecimal[] columnSumArr = new BigDecimal[columnSize - 1];
+         	BigDecimal[] columnSumArr = new BigDecimal[COLUMN_SIZE - 1];
          	
          	// 保存字符串的set
          	Set<String> columnNsSet = new HashSet<>();
 			// 读表头
 			if(csvReader.readHeaders()) {
-				for (int i = 0; i < columnSize; i++) {
+				for (int i = 0; i < COLUMN_SIZE; i++) {
 					columnNameArr[i] = csvReader.getHeader(i);
-					if(i == columnSize - 1) {
+					if(i == COLUMN_SIZE - 1) {
 						continue;
 					}
 					// 初始化求和数组值
@@ -301,17 +307,33 @@ public class DataBiz {
 	        	throw new BusinessException("分析数据写入数据库失败");
 			};
 			logger.info("analyze data end:" + System.currentTimeMillis());
+			// 标记文件处理成功
+			DataFile updateDataFile = new DataFile();
+			updateDataFile.setId(dataFile.getId());
+			updateDataFile.setStatus(FileStatusTypeEnum.TYPE_SUCCESS.getCode());
+			if(updateDataFileRecord(updateDataFile) < 1) {
+				logger.error(filePath + "dataAnalyzes update fail");
+	        	throw new BusinessException("更新上传文件记录状态失败");
+			};
 		} catch (NumberFormatException numberFormatException) {
-			logger.error("file　`" +dataFile.getFilename() + "` numberFormat exception at line " + (count + 1),numberFormatException);
-			csvReader.close();
-			csvReader = null;
-			// 删除异常文件
-			CsvUtils.deleteFile(dataFile.getFilepath() + dataFile.getNewfilename());
-			// 删除文件记录
-			dataFileMapper.deleteByPrimaryKey(dataFile.getId());
+			// 处理转换失败异常
+			String logString = "file　`" +dataFile.getFilename() + "` numberFormat exception at line " + (count + 1);
+			logger.error(logString,numberFormatException);
+			// 标注文件记录处理失败，并记录信息
+			DataFile updateDataFile = new DataFile();
+			updateDataFile.setId(dataFile.getId());
+			updateDataFile.setStatus(FileStatusTypeEnum.TYPE_FAILED.getCode());
+			updateDataFile.setData(logString);
+			updateDataFileRecord(updateDataFile);
 		} catch (IOException e) {
 			logger.error("csv file read fail",e);
-		}finally {
+			// 标注文件记录处理失败，并记录信息
+			DataFile updateDataFile = new DataFile();
+			updateDataFile.setId(dataFile.getId());
+			updateDataFile.setStatus(FileStatusTypeEnum.TYPE_FAILED.getCode());
+			updateDataFile.setData("file　`" +dataFile.getFilename() +"read fail");
+			updateDataFileRecord(updateDataFile);
+		} finally {
 			if(csvReader != null) {
 				csvReader.close();
 			}
@@ -406,5 +428,14 @@ public class DataBiz {
 		updateDataFile.setId(id);
 		updateDataFile.setUpdatetime(new Date());
 		dataFileMapper.updateByPrimaryKeySelective(updateDataFile);
+	}
+	
+	/**
+	 * 条件更新文件上传记录
+	 * @param dataFile
+	 * @return
+	 */
+	public int updateDataFileRecord(DataFile dataFile) {
+		return dataFileMapper.updateByPrimaryKeySelective(dataFile);
 	}
 }

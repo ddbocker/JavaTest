@@ -5,46 +5,91 @@ import java.util.Date;
 import java.util.List;
 
 public class DataFileExample {
+    /**
+     * data_file
+     */
     protected String orderByClause;
 
+    /**
+     * data_file
+     */
     protected boolean distinct;
 
+    /**
+     * data_file
+     */
     protected List<Criteria> oredCriteria;
 
+    /**
+     *
+     * @mbggenerated
+     */
     public DataFileExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public String getOrderByClause() {
         return orderByClause;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public boolean isDistinct() {
         return distinct;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
         if (oredCriteria.size() == 0) {
@@ -53,17 +98,28 @@ public class DataFileExample {
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
         return criteria;
     }
 
+    /**
+     *
+     * @mbggenerated
+     */
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
     }
 
+    /**
+     * data_file null
+     */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
 
@@ -635,6 +691,136 @@ public class DataFileExample {
             return (Criteria) this;
         }
 
+        public Criteria andStatusIsNull() {
+            addCriterion("status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(Integer value) {
+            addCriterion("status =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(Integer value) {
+            addCriterion("status <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(Integer value) {
+            addCriterion("status >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("status >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(Integer value) {
+            addCriterion("status <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("status <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<Integer> values) {
+            addCriterion("status in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<Integer> values) {
+            addCriterion("status not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(Integer value1, Integer value2) {
+            addCriterion("status between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataIsNull() {
+            addCriterion("data is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataIsNotNull() {
+            addCriterion("data is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataEqualTo(String value) {
+            addCriterion("data =", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataNotEqualTo(String value) {
+            addCriterion("data <>", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataGreaterThan(String value) {
+            addCriterion("data >", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataGreaterThanOrEqualTo(String value) {
+            addCriterion("data >=", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataLessThan(String value) {
+            addCriterion("data <", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataLessThanOrEqualTo(String value) {
+            addCriterion("data <=", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataLike(String value) {
+            addCriterion("data like", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataNotLike(String value) {
+            addCriterion("data not like", value, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataIn(List<String> values) {
+            addCriterion("data in", values, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataNotIn(List<String> values) {
+            addCriterion("data not in", values, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataBetween(String value1, String value2) {
+            addCriterion("data between", value1, value2, "data");
+            return (Criteria) this;
+        }
+
+        public Criteria andDataNotBetween(String value1, String value2) {
+            addCriterion("data not between", value1, value2, "data");
+            return (Criteria) this;
+        }
+
         public Criteria andCreatetimeIsNull() {
             addCriterion("createtime is null");
             return (Criteria) this;
@@ -756,6 +942,9 @@ public class DataFileExample {
         }
     }
 
+    /**
+     * data_file
+     */
     public static class Criteria extends GeneratedCriteria {
 
         protected Criteria() {
@@ -763,6 +952,9 @@ public class DataFileExample {
         }
     }
 
+    /**
+     * data_file null
+     */
     public static class Criterion {
         private String condition;
 

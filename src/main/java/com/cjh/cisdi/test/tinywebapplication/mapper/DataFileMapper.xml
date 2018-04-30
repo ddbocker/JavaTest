@@ -10,6 +10,8 @@
     <result column="newfilename" property="newfilename" jdbcType="VARCHAR" />
     <result column="managerid" property="managerid" jdbcType="INTEGER" />
     <result column="managername" property="managername" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="data" property="data" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -73,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, filename, filetype, filesize, filepath, newfilename, managerid, managername, 
-    createtime, updatetime
+    status, data, createtime, updatetime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample" >
     select
@@ -108,12 +110,14 @@
   <insert id="insert" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" >
     insert into data_file (id, filename, filetype, 
       filesize, filepath, newfilename, 
-      managerid, managername, createtime, 
-      updatetime)
+      managerid, managername, status, 
+      data, createtime, updatetime
+      )
     values (#{id,jdbcType=INTEGER}, #{filename,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR}, 
       #{filesize,jdbcType=BIGINT}, #{filepath,jdbcType=VARCHAR}, #{newfilename,jdbcType=VARCHAR}, 
-      #{managerid,jdbcType=INTEGER}, #{managername,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
-      #{updatetime,jdbcType=TIMESTAMP})
+      #{managerid,jdbcType=INTEGER}, #{managername,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{data,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.cjh.cisdi.test.tinywebapplication.dao.DataFile" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
     insert into data_file
@@ -141,6 +145,12 @@
       </if>
       <if test="managername != null" >
         managername,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="data != null" >
+        data,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -173,6 +183,12 @@
       </if>
       <if test="managername != null" >
         #{managername,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -215,6 +231,12 @@
       <if test="record.managername != null" >
         managername = #{record.managername,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.data != null" >
+        data = #{record.data,jdbcType=VARCHAR},
+      </if>
       <if test="record.createtime != null" >
         createtime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
@@ -236,6 +258,8 @@
       newfilename = #{record.newfilename,jdbcType=VARCHAR},
       managerid = #{record.managerid,jdbcType=INTEGER},
       managername = #{record.managername,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      data = #{record.data,jdbcType=VARCHAR},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -266,6 +290,12 @@
       <if test="managername != null" >
         managername = #{managername,jdbcType=VARCHAR},
       </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=VARCHAR},
+      </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
@@ -284,6 +314,8 @@
       newfilename = #{newfilename,jdbcType=VARCHAR},
       managerid = #{managerid,jdbcType=INTEGER},
       managername = #{managername,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      data = #{data,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

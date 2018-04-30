@@ -37,6 +37,8 @@ CREATE TABLE `data_file` (
 `newfilename`  varchar(50) NOT NULL COMMENT '保存文件名',
 `managerid` int NULL COMMENT '操作人id',
 `managername` varchar(10) NULL COMMENT '操作人姓名',
+`status` TINYINT NOT NULL DEFAULT 0 COMMENT '0：处理中，1：处理成功，2：处理失败，3：处理失败源文件已删除',
+`data` varchar(255) NULL COMMENT '描述',
 `createtime`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `updatetime`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
 PRIMARY KEY (`id`)
@@ -50,7 +52,7 @@ CREATE TABLE `data_analyze` (
 `id`  int NOT NULL AUTO_INCREMENT ,
 `file_recordid` INT NOT NULL COMMENT '文件记录id',
 `column_name` varchar(10) NULL COMMENT '列名',
-`column_type` TINYINT NOT NULL DEFAULT 0 COMMENT '列类型，0：数字，1：字符', 
+`column_type` TINYINT NOT NULL DEFAULT 0 COMMENT '列类型，0：数字，1：字符',
 `avg` decimal(21,10) NULL COMMENT '平均值',
 `std` decimal(21,10) NULL COMMENT '标准差',
 `ns` INT NULL COMMENT '离群值',

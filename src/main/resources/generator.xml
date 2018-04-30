@@ -12,9 +12,10 @@
         <!--自动实现Serializable接口-->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
-        <commentGenerator>
+        <commentGenerator type="com.cjh.cisdi.test.tinywebapplication.common.MyCommentGenerator">
             <property name="suppressDate" value="true" />
-            <property name="suppressAllComments" value="true" />
+             <!-- 是否去除自动生成的注释 true：是 ： false:否
+            <property name="suppressAllComments" value="true" /> --> 
         </commentGenerator>
         
 
@@ -43,9 +44,17 @@
 
         </table>
          
-        <table tableName="data_file" domainObjectName="DataFile" >
+        <table tableName="data_file">
+			<columnOverride column="status" jdbcType="INTEGER" javaType="java.lang.Integer"></columnOverride>
+        </table>  
+        
+        <table tableName="data_analyze" domainObjectName="DataAnalyze" >
+			<columnOverride column="column_type" jdbcType="INTEGER" javaType="java.lang.Integer"></columnOverride>
+        </table>-->
+        
+        <table tableName="data_record" domainObjectName="DataRecord" >
 
-        </table> -->
+        </table>
         
         <table tableName="data_analyze" domainObjectName="DataAnalyze" >
 			<columnOverride column="column_type" jdbcType="INTEGER" javaType="java.lang.Integer"></columnOverride>

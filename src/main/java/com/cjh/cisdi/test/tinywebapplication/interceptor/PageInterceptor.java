@@ -32,8 +32,8 @@ import org.springframework.stereotype.Component;
  * 
  */
 @Intercepts({
-		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class,Integer.class }),
-		@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = { Statement.class }) })
+		@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class,Integer.class}),
+		@Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class}) })
 @Component
 public class PageInterceptor implements Interceptor {
 
