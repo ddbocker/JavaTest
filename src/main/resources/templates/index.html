@@ -40,8 +40,8 @@
 				<p th:case="1">
 					<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >下载</a>
 		        	<a href="http://localhost:8080" th:href="'/downloadbreak?fileId=' + ${file.id}" >断点下载</a>
-		        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >样本分析</a>
-		        	<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >数据详情</a>
+		        	<a href="http://localhost:8080" th:href="'/analyzedata?fileId=' + ${file.id}" >样本分析</a>
+		        	<a href="http://localhost:8080" th:href="'/datalist?fileId=' + ${file.id} + '&pageNo=1'" >数据详情</a>
 				</p>
 				<p th:case="2">
 					<a href="http://localhost:8080" th:href="'/download?fileId=' + ${file.id}" >下载</a>

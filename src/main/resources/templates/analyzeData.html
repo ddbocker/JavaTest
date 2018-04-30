@@ -3,9 +3,53 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">   
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>数据分析结果</title>
 </head>
 <body>
-	
+	<table class="table" border="1">
+	<caption>分析结果</caption>
+	   <thead>
+	      <tr>
+	      	 <th>列名</th>
+	      	 <th>数据类型</th>
+	         <th>平均值（avg）</th>
+	         <th>标准差（std）</th>
+	         <th>离群值个数（ns）</th>
+	         <th>因子数（factor）</th>
+	      </tr>
+	   </thead>
+	    <tbody>
+	      <tr th:each="dataAnalyze : ${dataAnalyzes}"><!-- 其中m是个临时变量，像for(User u : userList)那样中的u-->
+	      	<td th:text="${dataAnalyze.columnName}" /> 
+	        <td th:switch="${dataAnalyze.columnType}">
+	        	<p th:case="0">数值型</p>
+				<p th:case="1">字符型</p>
+	        </td>
+	        <td th:switch="${dataAnalyze.columnType}">
+	        	<p th:case="0" th:text="${dataAnalyze.avg}" />
+				<p th:case="1">无</p>
+	        </td>
+	        
+	        <td th:switch="${dataAnalyze.columnType}">
+	        	<p th:case="0" th:text="${dataAnalyze.std}" />
+				<p th:case="1">无</p>
+	        </td>
+	        
+	        <td th:switch="${dataAnalyze.columnType}">
+	        	<p th:case="0" th:text="${dataAnalyze.ns}" />
+				<p th:case="1">无</p>
+	        </td>
+	        
+	        <td th:switch="${dataAnalyze.columnType}">
+	        	<p th:case="0">无</p>
+				<p th:case="1" th:text="${dataAnalyze.factor}" />
+	        </td>
+	    </tr>  
+	   </tbody>
+	    
+	</table> 
 </body>
 </html>

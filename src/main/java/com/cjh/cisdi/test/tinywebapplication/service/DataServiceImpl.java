@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,15 @@ import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
 import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.common.DataHanlder;
 import com.cjh.cisdi.test.tinywebapplication.common.FileUtils;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyzeExample;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
+import com.cjh.cisdi.test.tinywebapplication.mapper.DataAnalyzeMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper;
 
 /**
@@ -50,6 +55,9 @@ public class DataServiceImpl implements DataService{
 	
 	@Autowired
 	ConfigBean configBean;
+	
+	@Autowired
+	DataAnalyzeMapper dataAnalyzeMapperl;
 
 	/**
 	 * 上传文件
@@ -103,12 +111,13 @@ public class DataServiceImpl implements DataService{
 	
 	/**
 	 * 分页获取数据
+	 * @param fileId
 	 * @param page
 	 * @return
 	 */
 	@Override
-	public Page<DataRecord> getDataRecordPageResult(Integer page) {
- 		return dataBiz.getDataRecordPageResult(page);
+	public Page<DataRecord> getDataRecordPageResult(Integer fileId,Integer page) {
+ 		return dataBiz.getDataRecordPageResult(fileId, page);
 	}
 	
 	/**
@@ -311,5 +320,26 @@ public class DataServiceImpl implements DataService{
 			throw new BusinessException("更新文件记录状态失败");
 		}			
 		return true;
+	}
+
+	@Override
+	public List<DataAnalyze> getDataAnalyzes(Integer fileId) {
+		if(fileId == null || fileId < 0) {
+			throw new BusinessException("fileId不能为空或者<0");
+		}
+		DataAnalyzeExample dataAnalyzeExample = new DataAnalyzeExample();
+		DataAnalyzeExample.Criteria criteria = dataAnalyzeExample.createCriteria();
+		criteria.andFileRecordidEqualTo(fileId);
+		List<DataAnalyze> dataAnalyzes = dataAnalyzeMapperl.selectByExample(dataAnalyzeExample);
+		// 去除末尾0
+		if(CollectionUtils.isNotEmpty(dataAnalyzes)) {
+			for (DataAnalyze dataAnalyze : dataAnalyzes) {
+				if(AnalyzeTypeEnum.TYPE_NUM.getCode().intValue() == dataAnalyze.getColumnType()) {
+					dataAnalyze.setAvg(dataAnalyze.getAvg().stripTrailingZeros());
+					dataAnalyze.setStd(dataAnalyze.getStd().stripTrailingZeros());
+				}
+			}
+		}
+		return dataAnalyzes;
 	}
 }

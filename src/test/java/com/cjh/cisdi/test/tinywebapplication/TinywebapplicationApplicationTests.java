@@ -61,8 +61,9 @@ public class TinywebapplicationApplicationTests {
 	@Test
 	public void test_page() {
 		//页码，每页记录数默认为50
-		Integer pageNo = 2000;
-		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(pageNo);
+		Integer pageNo = 5;
+		Integer fileId = 1;
+		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(fileId,pageNo);
 		Assert.assertNotNull(rel);
 	}
 	

@@ -3,9 +3,53 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">   
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>数据列表</title>
 </head>
 <body>
+	<table class="table" border="1">
+	<caption>数据详情</caption>
+	   <thead>
+	      <tr>
+	      	 <th>A1</th>
+	      	 <th>A2</th>
+	      	 <th>A3</th>
+	      	 <th>A4</th>
+	      	 <th>A5</th>
+	      	 <th>A6</th>
+	      	 <th>A7</th>
+	      	 <th>A8</th>
+	      	 <th>A9</th>
+	      	 <th>A10</th>
+	      	 <th>A11</th>
+	      	 <th>A12</th>
+	      	 <th>quality</th>
+	      </tr>
+	   </thead>
+	    <tbody>
+	      <tr th:each="data : ${dataList}"><!-- 其中m是个临时变量，像for(User u : userList)那样中的u-->
+	      	<td th:text="${data.a1}" /> 
+	      	<td th:text="${data.a2}" /> 
+	      	<td th:text="${data.a3}" /> 
+	      	<td th:text="${data.a4}" /> 
+	      	<td th:text="${data.a5}" /> 
+	      	<td th:text="${data.a6}" /> 
+	      	<td th:text="${data.a7}" /> 
+	      	<td th:text="${data.a8}" /> 
+	      	<td th:text="${data.a9}" /> 
+	      	<td th:text="${data.a10}" /> 
+	      	<td th:text="${data.a11}" /> 
+	      	<td th:text="${data.a12}" /> 
+	      	<td th:text="${data.quality}" /> 
+	    </tr>  
+	   </tbody>
+	   <caption th:text="'总条数：' + ${totalSize}"></caption>
+	</table>
 	
+	<ul th:each="i, stat:${#numbers.sequence(1, pages)}" class="pagination pagination-sm">
+		<li th:class="${i eq pageNo} ? 'active':''"><a href="http://localhost:8080" th:href="'/datalist?fileId=' + ${fileId} + '&pageNo=' + ${i}" th:text="${i}" ></a></li>
+	</ul> 
 </body>
 </html>

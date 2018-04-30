@@ -26,8 +26,8 @@ import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
 import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
-import com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample;
 import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
@@ -111,32 +111,32 @@ public class DataBiz {
 	@Transactional(rollbackFor={Exception.class,RuntimeException.class})
 	public int dataPersistence(DataFile dataFile) {
 		// 判断文件类型，csv文件处理
-		if(dataFile.getFiletype() != null && FileTypeEnum.TYPE_CSV.getCode().equals(dataFile.getFiletype().toLowerCase())) {
-			csvDataListProcces(dataFile);
-			return 1;
+		if(dataFile.getFiletype() != null && !FileTypeEnum.TYPE_CSV.getCode().equals(dataFile.getFiletype().toLowerCase())) {
+			throw new BusinessException("文件类型有误");
 		} 
-		//xlsx文件处理
-		//xlsxDataListProcces(dataFile); 由于csv处理速度较xlsx快得多，不处理xlsx文件
+		csvDataListProcces(dataFile);
 		return 1;
 	}
 	
 	/**
 	 * 分页获取数据
+	 * @param fileId 文件记录Id
 	 * @param page 当前页码
 	 * @return
 	 */
-	public Page<DataRecord> getDataRecordPageResult(Integer page) {
+	public Page<DataRecord> getDataRecordPageResult(Integer fileId, Integer page) {
 		if(page == null || page == 0) {
 			page = DEFAULT_PAGE_CURRENT;
 		}
-		PageInterceptor.startPage(page, DEFAULT_PAGE_SIZE);
-		dataRecordMapper.selectByExample(null);
+		PageInterceptor.startPage(page, DEFAULT_PAGE_SIZE, "data_record", "id");
+		dataRecordMapperExt.getDataRecordsByPage(fileId);
 		return PageInterceptor.endPage();
 	}
 	
 	/**
 	 * xlsx文件处理
 	 * @param dataFile
+	 * @deprecated
 	 */
 	private void xlsxDataListProcces(DataFile dataFile) {
 		List<DataRecord> dataList = new ArrayList<DataRecord>(DataBiz.INSERT_SIZE);

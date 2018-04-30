@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
@@ -19,10 +20,11 @@ public interface DataService {
 	
 	/**
 	 * 分页获取数据记录
+	 * @param fileId
 	 * @param page
 	 * @return
 	 */
-	Page<DataRecord> getDataRecordPageResult(Integer page);
+	Page<DataRecord> getDataRecordPageResult(Integer fileId,Integer page);
 	
 	/**
 	 * 获取所有文件记录
@@ -52,4 +54,11 @@ public interface DataService {
 	 * @return
 	 */
 	boolean deleteFile(Integer fileId);
+	
+	/**
+	 * 获取文件分析记录
+	 * @param fileId
+	 * @return
+	 */
+	List<DataAnalyze> getDataAnalyzes(Integer fileId);
 }

@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.classmate.util.ResolvedTypeCache.Key;
+
 /**
  * 自定义分页组件
  * 
@@ -43,12 +45,15 @@ public class PageInterceptor implements Interceptor {
 
 	/**
 	 * 开始分页
-	 * 
+	 * 查询语句需以where条件结束，如果没有使用条件以where 1=1结束
 	 * @param pageNum
 	 * @param pageSize
+	 * @param tableName 表名
+	 * @param key 主键Id
+	 * 
 	 */
-	public static void startPage(int pageNum, int pageSize) {
-		localPage.set(new Page(pageNum, pageSize));
+	public static void startPage(int pageNum, int pageSize, String tableName, String key) {
+		localPage.set(new Page(pageNum, pageSize, tableName, key));
 	}
 	
 	/**
@@ -140,10 +145,9 @@ public class PageInterceptor implements Interceptor {
     private String buildPageSql(String sql, Page page) {
         StringBuilder pageSql = new StringBuilder(200);
         String beginrow = String.valueOf((page.getPageNum() - 1) * page.getPageSize());  
-        pageSql.append(sql);  
-        /* 数据量大时，效率低  pageSql.append(" limit " + beginrow + "," + page.getPageSize());*/
-        // 暂时只能对特定表，特定sql进行分页
-        pageSql.append(" WHERE id >= (SELECT id FROM data_record LIMIT " + beginrow + ",1) LIMIT " +  page.getPageSize());
+        pageSql.append(sql); 
+        // 分页sql
+        pageSql.append(" and id >= (SELECT " + page.getKey() + " FROM " + page.getTableName() + " LIMIT " + beginrow + ",1) LIMIT " +  page.getPageSize());
         return pageSql.toString();
     }
 
@@ -233,10 +237,22 @@ public class PageInterceptor implements Interceptor {
          * 数据集
          */
         private List<E> result;
+        
+        /**
+         * 表名
+         */
+        private String tableName;
+        
+        /**
+         * 主键名
+         */
+        private String key;
 
-        public Page(int pageNum, int pageSize) {
+        public Page(int pageNum, int pageSize, String tableName, String key) {
             this.pageNum = pageNum;
             this.pageSize = pageSize;
+            this.tableName = tableName;
+            this.key = key;
         }
 
         public List<E> getResult() {
@@ -279,14 +295,28 @@ public class PageInterceptor implements Interceptor {
             this.total = total;
         }
 
-        @Override
-        public String toString() {
-            return "Page{" +
-                    "pageNum=" + pageNum +
-                    ", pageSize=" + pageSize +
-                    ", total=" + total +
-                    ", pages=" + pages +
-                    '}';
-        }
+        public String getTableName() {
+			return tableName;
+		}
+
+		public void setTableName(String tableName) {
+			this.tableName = tableName;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		public void setKey(String key) {
+			this.key = key;
+		}
+
+		@Override
+		public String toString() {
+			return "Page [pageNum=" + pageNum + ", pageSize=" + pageSize
+					+ ", total=" + total + ", pages=" + pages + ", result="
+					+ result + ", tableName=" + tableName + ", key=" + key
+					+ "]";
+		}
     }
 }
