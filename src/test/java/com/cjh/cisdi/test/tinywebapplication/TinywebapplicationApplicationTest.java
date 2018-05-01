@@ -19,7 +19,13 @@ import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapperExt;
+import com.cjh.cisdi.test.tinywebapplication.service.DataService;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TinywebapplicationApplicationTest {
@@ -31,6 +37,8 @@ public class TinywebapplicationApplicationTest {
 	DataFileMapper dataFileMapper;
 	@Autowired
 	DataRecordMapper dataRecordMapper;
+	@Autowired
+	DataService dataService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(TinywebapplicationApplicationTest.class);
 	
@@ -55,9 +63,9 @@ public class TinywebapplicationApplicationTest {
 	@Test
 	public void testPage() {
 		//页码，每页记录数默认为50
-		Integer pageNo = 5;
+		Integer pageNo = 1;
 		Integer fileId = 1;
-		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(fileId,pageNo);
+		Page<DataRecord> rel = dataService.getDataRecordPageResult(fileId,pageNo);
 		Assert.assertNotNull(rel);
 	}
 	

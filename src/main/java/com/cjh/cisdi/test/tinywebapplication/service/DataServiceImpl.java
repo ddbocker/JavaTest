@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -117,7 +118,25 @@ public class DataServiceImpl implements DataService{
 	 */
 	@Override
 	public Page<DataRecord> getDataRecordPageResult(Integer fileId,Integer page) {
- 		return dataBiz.getDataRecordPageResult(fileId, page);
+		Page<DataRecord> pageResult =  dataBiz.getDataRecordPageResult(fileId, page);
+		if(pageResult != null && CollectionUtils.isNotEmpty(pageResult.getResult())) {
+			// 去除末尾0
+			for (DataRecord dataRecord : pageResult.getResult()) {
+				dataRecord.setA1(new BigDecimal(dataRecord.getA1().stripTrailingZeros().toPlainString()));
+				dataRecord.setA2(new BigDecimal(dataRecord.getA2().stripTrailingZeros().toPlainString()));
+				dataRecord.setA3(new BigDecimal(dataRecord.getA3().stripTrailingZeros().toPlainString()));
+				dataRecord.setA4(new BigDecimal(dataRecord.getA4().stripTrailingZeros().toPlainString()));
+				dataRecord.setA5(new BigDecimal(dataRecord.getA5().stripTrailingZeros().toPlainString()));
+				dataRecord.setA6(new BigDecimal(dataRecord.getA6().stripTrailingZeros().toPlainString()));
+				dataRecord.setA7(new BigDecimal(dataRecord.getA7().stripTrailingZeros().toPlainString()));
+				dataRecord.setA8(new BigDecimal(dataRecord.getA8().stripTrailingZeros().toPlainString()));
+				dataRecord.setA9(new BigDecimal(dataRecord.getA9().stripTrailingZeros().toPlainString()));
+				dataRecord.setA10(new BigDecimal(dataRecord.getA10().stripTrailingZeros().toPlainString()));
+				dataRecord.setA11(new BigDecimal(dataRecord.getA11().stripTrailingZeros().toPlainString()));
+				dataRecord.setA12(new BigDecimal(dataRecord.getA12().stripTrailingZeros().toPlainString()));
+			}
+		}
+ 		return pageResult;
 	}
 	
 	/**
@@ -335,8 +354,8 @@ public class DataServiceImpl implements DataService{
 		if(CollectionUtils.isNotEmpty(dataAnalyzes)) {
 			for (DataAnalyze dataAnalyze : dataAnalyzes) {
 				if(AnalyzeTypeEnum.TYPE_NUM.getCode().intValue() == dataAnalyze.getColumnType()) {
-					dataAnalyze.setAvg(dataAnalyze.getAvg().stripTrailingZeros());
-					dataAnalyze.setStd(dataAnalyze.getStd().stripTrailingZeros());
+					dataAnalyze.setAvg(new BigDecimal(dataAnalyze.getAvg().stripTrailingZeros().toPlainString()));
+					dataAnalyze.setStd(new BigDecimal(dataAnalyze.getStd().stripTrailingZeros().toPlainString()));
 				}
 			}
 		}
