@@ -71,12 +71,9 @@ public class PageInterceptor implements Interceptor {
 		}
 		
 		if (invocation.getTarget() instanceof StatementHandler) {
-			StatementHandler statementHandler = (StatementHandler) invocation
-					.getTarget();
-			MetaObject metaStatementHandler = SystemMetaObject
-					.forObject(statementHandler);
-			// 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环
-			// 可以分离出最原始的的目标类)
+			StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+			MetaObject metaStatementHandler = SystemMetaObject.forObject(statementHandler);
+			// 分离代理对象链(由于目标类可能被多个拦截器拦截，从而形成多次代理，通过下面的两次循环可以分离出最原始的的目标类)
 			while (metaStatementHandler.hasGetter("h")) {
 				Object object = metaStatementHandler.getValue("h");
 				metaStatementHandler = SystemMetaObject.forObject(object);
@@ -86,11 +83,9 @@ public class PageInterceptor implements Interceptor {
 				Object object = metaStatementHandler.getValue("target");
 				metaStatementHandler = SystemMetaObject.forObject(object);
 			}
-			MappedStatement mappedStatement = (MappedStatement) metaStatementHandler
-					.getValue("delegate.mappedStatement");
+			MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
 			Page page = LOCAL_PAGE.get();
-			BoundSql boundSql = (BoundSql) metaStatementHandler
-					.getValue("delegate.boundSql");
+			BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
 			// 分页参数作为参数对象parameterObject的一个属性
 			String sql = boundSql.getSql();
 			// 重写sql
