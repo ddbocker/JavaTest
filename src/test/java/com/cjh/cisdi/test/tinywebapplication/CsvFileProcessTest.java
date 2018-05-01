@@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,18 +37,16 @@ public class CsvFileProcessTest {
 	@Autowired
 	DataRecordMapper dataRecordMapper;
 	
-	private static final Logger logger = LoggerFactory.getLogger(CsvFileProcessTest.class);
-	
 	/**
 	 * 修改单元格
 	 */
 	@Test
 	public void testUpdateCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
-		final int dataFileId = 1;
+		final int dataFileId = 7;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
-		//修改文件第二行，第二列数据为123
-		boolean rel = CsvUtils.updateCsvFile(2, 13, "1223", dataFile);
+		//修改文件第二行，第一列数据为1223
+		boolean rel = CsvUtils.updateCsvFile(2, 1, "1223", dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -60,10 +56,10 @@ public class CsvFileProcessTest {
 	@Test
 	public void testDeleteRowCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
-		final int dataFileId = 1;
+		final int dataFileId = 7;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		//删除文件第二行
-		boolean rel = CsvUtils.deleteCsvFileForRow(14, dataFile);
+		boolean rel = CsvUtils.deleteCsvFileForRow(2, dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -73,10 +69,10 @@ public class CsvFileProcessTest {
 	@Test
 	public void testDeleteColCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
-		final int dataFileId = 1;
+		final int dataFileId = 7;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		//删除文件第一列
-		boolean rel = CsvUtils.deleteCsvFileForColumn(12, dataFile);
+		boolean rel = CsvUtils.deleteCsvFileForColumn(1, dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -88,10 +84,12 @@ public class CsvFileProcessTest {
 		// 并发线程数
 		int count = 6;
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
-		final int dataFileId = 1;
+		final int dataFileId = 7;
 		ExecutorService executorService = new ThreadPoolExecutor(count, count, 0L, TimeUnit.MILLISECONDS,
 				new LinkedBlockingQueue<Runnable>());
+		// 结束计数器
 		final CountDownLatch countDownLatch = new CountDownLatch(count); 
+		// 启动计数器
 		final CountDownLatch countDownLatch2 = new CountDownLatch(count);
 		try {
 			for (int i = 0; i < count; i++) {
