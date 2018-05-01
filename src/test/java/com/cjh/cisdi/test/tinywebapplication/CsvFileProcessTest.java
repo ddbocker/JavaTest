@@ -1,6 +1,5 @@
 package com.cjh.cisdi.test.tinywebapplication;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -18,17 +17,19 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
-import com.cjh.cisdi.test.tinywebapplication.common.ExcelUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
-import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
-import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapperExt;
 
+/**
+ * 文件修改测试
+ * @author cjh
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TinywebapplicationApplicationTests {
+public class CsvFileProcessTest {
 	@Autowired
 	DataBiz dataBiz;
 	@Autowired
@@ -38,52 +39,18 @@ public class TinywebapplicationApplicationTests {
 	@Autowired
 	DataRecordMapper dataRecordMapper;
 	
-	private static final Logger logger = LoggerFactory.getLogger(TinywebapplicationApplicationTests.class);
-	
-	@Test
-	public void readExcelTest() {
-		String filePath = "C://test//1524706745957.xlsx";
-		List<DataRecord> dataRecords = ExcelUtils.getDataListFromExcel(filePath);
-		Assert.assertNotNull(dataRecords);
-	}
-	
-	@Test
-	public void insert() {
-		String filePath = "C://test//1524706745957.xlsx";
-		List<DataRecord> dataRecords = ExcelUtils.getDataListFromExcel(filePath);
-		int rel = dataBiz.dataPersistence(dataRecords);
-		Assert.assertTrue(rel > 0);
-	}
-	
-	/**
-	 * 分页获取
-	 */
-	@Test
-	public void test_page() {
-		//页码，每页记录数默认为50
-		Integer pageNo = 5;
-		Integer fileId = 1;
-		Page<DataRecord> rel = dataBiz.getDataRecordPageResult(fileId,pageNo);
-		Assert.assertNotNull(rel);
-	}
-	
-	@Test
-	public void test_pageInsert() {
-		DataFile dataFile = dataFileMapper.selectByPrimaryKey(14);
-		int rel = dataBiz.dataPersistence(dataFile);
-		Assert.assertTrue(rel > 0);
-	}
+	private static final Logger logger = LoggerFactory.getLogger(CsvFileProcessTest.class);
 	
 	/**
 	 * 修改单元格
 	 */
 	@Test
-	public void test_updateCsvFile() {
+	public void testUpdateCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
-		final int dataFileId = 14;
+		final int dataFileId = 1;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		//修改文件第二行，第二列数据为123
-		boolean rel = CsvUtils.updateCsvFile(2, 2, "1223", dataFile);
+		boolean rel = CsvUtils.updateCsvFile(2, 13, "1223", dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -91,12 +58,12 @@ public class TinywebapplicationApplicationTests {
 	 * 删除某行
 	 */
 	@Test
-	public void test_deleteRowCsvFile() {
+	public void testDeleteRowCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
 		final int dataFileId = 1;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		//删除文件第二行
-		boolean rel = CsvUtils.deleteCsvFileForRow(2, dataFile);
+		boolean rel = CsvUtils.deleteCsvFileForRow(14, dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -104,12 +71,12 @@ public class TinywebapplicationApplicationTests {
 	 * 删除某列
 	 */
 	@Test
-	public void test_deleteColCsvFile() {
+	public void testDeleteColCsvFile() {
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;
 		final int dataFileId = 1;
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		//删除文件第一列
-		boolean rel = CsvUtils.deleteCsvFileForColumn(1, dataFile);
+		boolean rel = CsvUtils.deleteCsvFileForColumn(12, dataFile);
 		Assert.assertTrue(rel);
 	}
 	
@@ -117,7 +84,7 @@ public class TinywebapplicationApplicationTests {
 	 * 并发更新
 	 */
 	@Test
-	public void test_concurrentUpdate() {
+	public void testConcurrentUpdate() {
 		// 并发线程数
 		int count = 6;
 		// 上传文件记录主键id，data_fileid，需修改为对应记录再测试;

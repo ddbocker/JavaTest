@@ -14,10 +14,10 @@ public enum FileStatusTypeEnum {
 	TYPE_SUCCESS(1,"处理成功"),
 	
 	/** 2，处理失败 **/
-	TYPE_FAILED(1,"处理失败"),
+	TYPE_FAILED(2,"处理失败"),
 	
 	/** 3：处理失败源文件已删除**/
-	TYPE_FAILED_AND_DELETE(1,"处理失败源文件已删除");
+	TYPE_FAILED_AND_DELETE(3,"处理失败源文件已删除");
 
 	/**
 	 * @Description: 构造方法
@@ -74,8 +74,9 @@ public enum FileStatusTypeEnum {
 			return null;
 		}
 		for (FileStatusTypeEnum type : values()) {
-			if (type.getCode().equals(code))
+			if (type.getCode().equals(code)) {
 				return type;
+			}
 		}
 		return null;
 	}

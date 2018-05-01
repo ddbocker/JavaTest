@@ -25,8 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.classmate.util.ResolvedTypeCache.Key;
-
 /**
  * 自定义分页组件
  * 
@@ -41,7 +39,7 @@ public class PageInterceptor implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(PageInterceptor.class);
 
-	public static final ThreadLocal<Page> localPage = new ThreadLocal<Page>();
+	public static final ThreadLocal<Page> LOCAL_PAGE = new ThreadLocal<Page>();
 
 	/**
 	 * 开始分页
@@ -53,7 +51,7 @@ public class PageInterceptor implements Interceptor {
 	 * 
 	 */
 	public static void startPage(int pageNum, int pageSize, String tableName, String key) {
-		localPage.set(new Page(pageNum, pageSize, tableName, key));
+		LOCAL_PAGE.set(new Page(pageNum, pageSize, tableName, key));
 	}
 	
 	/**
@@ -61,14 +59,14 @@ public class PageInterceptor implements Interceptor {
      * @return
      */
     public static Page endPage() {
-        Page page = localPage.get();
-        localPage.remove();
+        Page page = LOCAL_PAGE.get();
+        LOCAL_PAGE.remove();
         return page;
     }
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-		if (localPage.get() == null) {
+		if (LOCAL_PAGE.get() == null) {
 			return invocation.proceed();
 		}
 		
@@ -90,8 +88,7 @@ public class PageInterceptor implements Interceptor {
 			}
 			MappedStatement mappedStatement = (MappedStatement) metaStatementHandler
 					.getValue("delegate.mappedStatement");
-			// 分页信息if (localPage.get() != null) {
-			Page page = localPage.get();
+			Page page = LOCAL_PAGE.get();
 			BoundSql boundSql = (BoundSql) metaStatementHandler
 					.getValue("delegate.boundSql");
 			// 分页参数作为参数对象parameterObject的一个属性
@@ -107,7 +104,7 @@ public class PageInterceptor implements Interceptor {
 			return invocation.proceed();
 		} else if (invocation.getTarget() instanceof ResultSetHandler) {
 			Object result = invocation.proceed();
-			Page page = localPage.get();
+			Page page = LOCAL_PAGE.get();
 			page.setResult((List) result);
 			return result;
 		}

@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 public class DataRecordExample {
     /**
      * data_record

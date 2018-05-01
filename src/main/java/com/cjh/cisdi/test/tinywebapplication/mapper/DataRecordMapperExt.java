@@ -6,6 +6,11 @@ import org.apache.ibatis.annotations.Param;
 
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 public interface DataRecordMapperExt {
 	/**
 	 * 批量写入数据

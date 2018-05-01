@@ -10,6 +10,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cjh.cisdi.test.tinywebapplication.service.DataService;
 
+/**
+ * 上传控制器
+ * @author cjh
+ *
+ */
 @Controller
 public class UploadController {
 	@Autowired

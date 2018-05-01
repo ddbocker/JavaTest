@@ -27,7 +27,6 @@ import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
-import com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample;
 import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
@@ -374,7 +373,7 @@ public class DataBiz {
 	 * @param value 修改值
 	 * @return
 	 */
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public boolean updateCsvFile(Integer dataFileId,Integer rowNum,Integer columnNum,String value) {
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		if(dataFile == null) {
@@ -391,7 +390,7 @@ public class DataBiz {
 	 * @param rowNum
 	 * @return
 	 */
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public boolean deleteCsvFileForRow(Integer dataFileId,Integer rowNum) {
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		if(dataFile == null) {
@@ -408,7 +407,7 @@ public class DataBiz {
 	 * @param columnNum
 	 * @return
 	 */
-	@Transactional
+	@Transactional(rollbackFor=Exception.class)
 	public boolean deleteCsvFileForColumn(Integer dataFileId,Integer columnNum) {
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(dataFileId);
 		if(dataFile == null) {

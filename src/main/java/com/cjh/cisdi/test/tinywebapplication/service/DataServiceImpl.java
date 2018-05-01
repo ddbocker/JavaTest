@@ -148,7 +148,7 @@ public class DataServiceImpl implements DataService{
 		OutputStream os = null;
 		try {
 			// 开始下载
-			response.setContentType("application/force-download");// 设置强制下载不打开
+			response.setContentType("application/force-download");
 			// 中文乱码
 			String formFileName = URLEncoder.encode(dataFile.getFilename(), "UTF-8"); 
 			// 设置文件名
@@ -221,7 +221,7 @@ public class DataServiceImpl implements DataService{
 		OutputStream os = null;
 		try {
 			// 开始下载
-			response.setContentType("application/force-download");// 设置强制下载不打开
+			response.setContentType("application/force-download");
 			// 中文乱码
 			String formFileName = URLEncoder.encode(dataFile.getFilename(), "UTF-8"); 
 			// 设置文件名

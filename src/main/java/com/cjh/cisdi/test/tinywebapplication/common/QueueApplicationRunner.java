@@ -13,6 +13,11 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+/**
+ * 消费线程
+ * @author cjh
+ *
+ */
 @Component
 @Order(value = 1)
 public class QueueApplicationRunner implements ApplicationRunner{
@@ -21,7 +26,7 @@ public class QueueApplicationRunner implements ApplicationRunner{
 	
 	private static final Logger logger = LoggerFactory.getLogger(QueueApplicationRunner.class); 
 	
-	private static final Integer THREAD_SIZE = 3;
+	private static final Integer THREAD_SIZE = 1;
 	
     @Override
     public void run(ApplicationArguments var1) throws Exception{
@@ -35,17 +40,17 @@ public class QueueApplicationRunner implements ApplicationRunner{
 			@Override
 			public void run() {
 				// 当前失败次数
-				int fail_no = 0;
+				int failNo = 0;
 				// 最大重试次数
-				int max_fail_no = 2;
+				int maxFailNo = 2;
 				
 				try {
 					// 消费文件队列，写入数据库
 					dataHanlder.queueProcessor();
 				} catch (Exception e) {
-					fail_no++;
+					failNo++;
 					// 重试3次
-					if(fail_no > max_fail_no) {
+					if(failNo > maxFailNo) {
 						logger.error("QueueApplicationRunner file queue hanlder has shutdown");
 					}else {
 						dataHanlder.queueProcessor();
@@ -55,8 +60,8 @@ public class QueueApplicationRunner implements ApplicationRunner{
 			}
 		});
     	
-    	// 列表处理器
-    	for (int i = 0; i < THREAD_SIZE - 1; i++) {
+    	// 文件内容分段消费处理器
+    	/*for (int i = 0; i < THREAD_SIZE - 1; i++) {
     		executorService.execute(new Runnable() {
     			
     			@Override
@@ -81,7 +86,7 @@ public class QueueApplicationRunner implements ApplicationRunner{
     				
     			}
     		});
-		}
+		}*/
     	
     }
 

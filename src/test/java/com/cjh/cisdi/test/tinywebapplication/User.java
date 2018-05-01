@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import org.mybatis.generator.api.ShellRunner;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 public class User {
     public static void main( String[] args ) throws IOException
     {

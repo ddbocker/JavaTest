@@ -11,6 +11,11 @@ import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 
+/**
+ * 文件数据处理
+ * @author cjh
+ *
+ */
 public interface DataService {
 	/**
 	 * 上传文件

@@ -5,6 +5,11 @@ import com.cjh.cisdi.test.tinywebapplication.dao.DataFileExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 public interface DataFileMapper {
     /**
      *

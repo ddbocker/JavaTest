@@ -53,8 +53,9 @@ public enum FileTypeEnum {
 			return null;
 		}
 		for (FileTypeEnum type : values()) {
-			if (type.getCode().equals(code.trim()))
+			if (type.getCode().equals(code.trim())) {
 				return type;
+			}
 		}
 		return null;
 	}

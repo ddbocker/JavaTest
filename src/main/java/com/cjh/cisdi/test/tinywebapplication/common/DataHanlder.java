@@ -12,6 +12,11 @@ import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
 
+/**
+ * 队列消费者
+ * @author cjh
+ *
+ */
 @Component
 public class DataHanlder {
 	

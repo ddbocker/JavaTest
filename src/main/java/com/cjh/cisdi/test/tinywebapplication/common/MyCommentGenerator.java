@@ -22,6 +22,7 @@ import org.mybatis.generator.config.PropertyRegistry;
 
 /**
  * 中文注释生成器
+ * @author cjh
  */
 public class MyCommentGenerator implements CommentGenerator{
     private Properties properties;

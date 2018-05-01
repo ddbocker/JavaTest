@@ -4,6 +4,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * 
+ * @author cjh
+ *
+ */
 @SpringBootApplication
 @MapperScan("com.cjh.cisdi.test.tinywebapplication.mapper")
 public class TinywebapplicationApplication {

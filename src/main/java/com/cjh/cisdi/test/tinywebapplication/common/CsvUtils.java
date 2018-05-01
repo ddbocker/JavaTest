@@ -29,7 +29,7 @@ public class CsvUtils {
 	 * @param dataFile 文件记录
 	 * @return
 	 */
-	public static boolean updateCsvFile(Integer rowNum,Integer columnNum,String value,DataFile dataFile) {
+	public static boolean updateCsvFile(Integer rowNum, Integer columnNum, String value, DataFile dataFile) {
 		
 		if(dataFile == null) {
 			return false;
@@ -65,7 +65,7 @@ public class CsvUtils {
 				}
 				
 				for (int i = 0; i < content.length; i++) {
-					if(i == columnNum) {
+					if(i == columnNum - 1) {
 						content[i] = value;
 						continue;
 					}
@@ -98,7 +98,7 @@ public class CsvUtils {
 	 * @param dataFile 文件记录
 	 * @return
 	 */
-	public static boolean deleteCsvFileForRow(Integer rowNum,DataFile dataFile) {
+	public static boolean deleteCsvFileForRow(Integer rowNum, DataFile dataFile) {
 		
 		if(dataFile == null) {
 			return false;
@@ -155,7 +155,7 @@ public class CsvUtils {
 	 * @param dataFile 文件记录
 	 * @return
 	 */
-	public static boolean deleteCsvFileForColumn(Integer columnNum,DataFile dataFile) {
+	public static boolean deleteCsvFileForColumn(Integer columnNum, DataFile dataFile) {
 		if(dataFile == null) {
 			return false;
 		}
@@ -233,7 +233,7 @@ public class CsvUtils {
     * @param newFilePath 新文件名    
     * @return 成功返回true，否则返回false
     */
-   public static boolean renameFile(String filePath,String newFilePath) {
+   public static boolean renameFile(String filePath, String newFilePath) {
        File file = new File(filePath);
        // 如果文件路径所对应的文件存在，并且是一个文件，则重命名
        if (file.exists() && file.isFile()) {

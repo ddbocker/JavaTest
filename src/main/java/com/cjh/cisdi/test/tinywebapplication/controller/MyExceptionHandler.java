@@ -21,7 +21,7 @@ public class MyExceptionHandler {
 	@ExceptionHandler(BusinessException.class)
     @ResponseStatus
     public Map<String, Object> handlerBusinessException(BusinessException ex) {
-        Map<String,Object> result = new HashMap<>();
+        Map<String,Object> result = new HashMap<>(2);
         result.put("message", ex.getMessage());
         result.put("error type", "BusinessException");
         return result;

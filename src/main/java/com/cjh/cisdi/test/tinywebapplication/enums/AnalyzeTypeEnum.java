@@ -56,8 +56,9 @@ public enum AnalyzeTypeEnum {
 			return null;
 		}
 		for (AnalyzeTypeEnum type : values()) {
-			if (type.getCode().equals(code))
+			if (type.getCode().equals(code)) {
 				return type;
+			}
 		}
 		return null;
 	}
