@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
@@ -34,26 +35,19 @@ public class DataRecordResultHandler {
 	
 	/**
 	 * 计算样本标准差
+	 * @param avgArr 平均值数组
+	 * @param count 样本数
+	 * @param param 条件map
+	 * @param sqlSession 
 	 * @param example
 	 * @param mapperName
-	 * @param resultHandler
 	 * @return
 	 */
-	public BigDecimal[] getSampleStd(BigDecimal[] avgArr, Integer count, Integer fileId) {
+	public BigDecimal[] getSampleStd(BigDecimal[] avgArr, Integer count,  Map<String, Object> param,
+			SqlSession sqlSession, DataRecordExample example, String mapperName) {
 		if (avgArr == null || count == null || count < 0) {
 			return null;
 		}
-		SqlSession session = sessionFactory.openSession();
-		// 条件查询
-		DataRecordExample example = new DataRecordExample();
-		DataRecordExample.Criteria criteria = example.createCriteria();
-		criteria.andFileRecordidEqualTo(fileId);
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("oredCriteria", example.getOredCriteria());
-		
-		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
-		
 		// 初始化求和数组
 		final BigDecimal[] stdSumArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		for (int i = 0; i < stdSumArr.length; i++) {
@@ -65,7 +59,7 @@ public class DataRecordResultHandler {
 		// 标准差结果数组
 		final BigDecimal[] stdArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		// 流式处理
-		session.select(mapperName, param, new ResultHandler<DataRecord>() {
+		sqlSession.select(mapperName, param, new ResultHandler<DataRecord>() {
 
 			@Override
 			public void handleResult(ResultContext<? extends DataRecord> resultContext) {
@@ -96,25 +90,20 @@ public class DataRecordResultHandler {
 	
 	/**
 	 * 计算样本离散值
-	 * @param avg 样本平均值数组
-	 * @param std 样本标准差数组
-	 * @param fileId 文件记录Id
+	 * @param avgArr 平均值结果集
+	 * @param stdArr 标准差结果集
+	 * @param param 条件map
+	 * @param sqlSession
+	 * @param example
+	 * @param mapperName
 	 * @return
 	 */
-	public int[] getSampleNs(BigDecimal[] avgArr, BigDecimal[] stdArr, Integer fileId) {
-		if (avgArr == null || stdArr == null ) {
+	public int[] getSampleNs(BigDecimal[] avgArr, BigDecimal[] stdArr, Map<String, Object> param,
+			SqlSession sqlSession, DataRecordExample example, String mapperName) {
+		if (avgArr == null || stdArr == null || param == null || 
+				sqlSession == null || example == null || StringUtils.isEmpty(mapperName)) {
 			return null;
 		}
-		SqlSession session = sessionFactory.openSession();
-		
-		DataRecordExample example = new DataRecordExample();
-		DataRecordExample.Criteria criteria = example.createCriteria();
-		criteria.andFileRecordidEqualTo(fileId);
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("oredCriteria", example.getOredCriteria());
-		
-		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
 		
 		// 初始化离群值结果集数组
 		final int[] nsArr = new int[ANALYZE_RESULT_ARRAY_SIZE];
@@ -132,7 +121,7 @@ public class DataRecordResultHandler {
 		}
 		
 		// 流式处理
-		session.select(mapperName, param, new ResultHandler<DataRecord>() {
+		sqlSession.select(mapperName, param, new ResultHandler<DataRecord>() {
 
 			@Override
 			public void handleResult(ResultContext<? extends DataRecord> resultContext) {

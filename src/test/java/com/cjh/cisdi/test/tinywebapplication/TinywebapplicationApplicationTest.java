@@ -1,13 +1,18 @@
 package com.cjh.cisdi.test.tinywebapplication;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cjh.cisdi.test.tinywebapplication.DataHandler.DataRecordResultHandler;
@@ -15,6 +20,7 @@ import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.ExcelUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample;
 import com.cjh.cisdi.test.tinywebapplication.interceptor.PageInterceptor.Page;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataFileMapper;
 import com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper;
@@ -41,6 +47,8 @@ public class TinywebapplicationApplicationTest {
 	DataService dataService;
 	@Autowired
 	DataRecordResultHandler dataRecordResultHandler;
+	@Autowired
+	SqlSessionFactory sqlSessionFactory;
 	
 	@Test
 	public void readExcelTest() {
@@ -76,25 +84,6 @@ public class TinywebapplicationApplicationTest {
 		Assert.assertTrue(rel > 0);
 	}
 	
-	@Test
-	public void testStdHandler(){
-		BigDecimal[] avg = new BigDecimal[12];
-		avg[0] = new BigDecimal("1.6244285714");
-		avg[1] = new BigDecimal("90.4285714286");
-		avg[2] = new BigDecimal("1275");
-		avg[3] = new BigDecimal("12.7982857143");
-		avg[4] = new BigDecimal("0.0205714286");
-		avg[5] = new BigDecimal("10.9071428571");
-		avg[6] = new BigDecimal("0.0292857143");
-		avg[7] = new BigDecimal("0.0059285714");
-		avg[8] = new BigDecimal("1008.4285714286");
-		avg[9] = new BigDecimal("38153.4614285714");
-		avg[10] = new BigDecimal("877.5");
-		avg[11] = new BigDecimal("1128.7857142857");
-		
-		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, 3);
-		Assert.assertTrue(std.length > 0);
-	}
 	
 	@Test
 	public void testNsHandler() {
@@ -112,9 +101,20 @@ public class TinywebapplicationApplicationTest {
 		avg[10] = new BigDecimal("877.5");
 		avg[11] = new BigDecimal("1128.7857142857");
 		
-		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, 4);
+		SqlSession sqlSession = sqlSessionFactory.openSession();			
+		DataRecordExample example = new DataRecordExample();
+		DataRecordExample.Criteria criteria = example.createCriteria();
+		criteria.andFileRecordidEqualTo(4);
 		
-		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, 4);
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("oredCriteria", example.getOredCriteria());
+		
+		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
+		
+		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, param, sqlSession, example, mapperName);
+		
+		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, param, sqlSession, example, mapperName);
+		sqlSession.close();
 		Assert.assertTrue(std.length > 0);
 	}
 	

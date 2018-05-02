@@ -7,10 +7,14 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -97,6 +101,8 @@ public class DataBiz {
 	@Autowired
 	DataRecordResultHandler dataRecordResultHandler;
 	
+	@Autowired
+	SqlSessionFactory sqlSessionFactory;
     /**
      * 批量写入数据库
      * @param dataList
@@ -216,6 +222,8 @@ public class DataBiz {
 		
 		// 计数器
 		int count = 0;
+		
+		SqlSession sqlSession = null;
 		try {
 			csvReader = new CsvReader(filePath);
 			
@@ -287,21 +295,43 @@ public class DataBiz {
 			*/
 			
 			
-			// 计算平均值,读取数据库处理
+			// 获取样本平均值
 			DataRecord avgDataRecord = dataRecordMapperExt.getSampleAvg(dataFile.getId());
 			if(avgDataRecord == null) {
 				logger.error(filePath + "从数据库获取数值列平均值失败");
 	        	throw new BusinessException(filePath + "从数据库获取数值列平均值失败");
 			}
-			// 获取因子数
+			// 因子数
 			int factorNum = Integer.valueOf(avgDataRecord.getQuality());
-			
+			// 转换为数组
 			BigDecimal[] avgArr = dataRecordResultHandler.getBigDecimalArr(avgDataRecord);
-			// 计算标准差,读取数据库处理
-			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, dataFile.getId());
-			// 计算离群值，读取数据库处理
-			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, dataFile.getId());
 			
+			// 使用流式遍历数据详情记录
+			sqlSession = sqlSessionFactory.openSession();			
+			DataRecordExample example = new DataRecordExample();
+			DataRecordExample.Criteria criteria = example.createCriteria();
+			criteria.andFileRecordidEqualTo(dataFile.getId());
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("oredCriteria", example.getOredCriteria());
+			
+			String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
+			
+			// 获取标准差结果集
+			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, param, sqlSession, example, mapperName);
+			
+			if(stdArr == null) {
+				logger.error(filePath + "计算标准差异常");
+	        	throw new BusinessException(filePath + "计算标准差异常");
+			}
+			
+			// 获取离群值结果集
+			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, param, sqlSession, example, mapperName);
+			
+			if(nsArr == null) {
+				logger.error(filePath + "计算离群值异常");
+	        	throw new BusinessException(filePath + "计算离群值异常");
+			}
 			
 			// 构建分析记录列表
 			List<DataAnalyze> dataAnalyzes = new ArrayList<>(columnNameArr.length);
@@ -360,6 +390,10 @@ public class DataBiz {
 		} finally {
 			if(csvReader != null) {
 				csvReader.close();
+			}
+			
+			if(sqlSession != null) {
+				sqlSession.close();
 			}
 		}
 	}
