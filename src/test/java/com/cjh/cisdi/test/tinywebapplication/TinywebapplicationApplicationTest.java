@@ -1,5 +1,6 @@
 package com.cjh.cisdi.test.tinywebapplication;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Assert;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.cjh.cisdi.test.tinywebapplication.DataHandler.DataRecordResultHandler;
 import com.cjh.cisdi.test.tinywebapplication.biz.DataBiz;
 import com.cjh.cisdi.test.tinywebapplication.common.ExcelUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
@@ -37,6 +39,8 @@ public class TinywebapplicationApplicationTest {
 	DataRecordMapper dataRecordMapper;
 	@Autowired
 	DataService dataService;
+	@Autowired
+	DataRecordResultHandler dataRecordResultHandler;
 	
 	@Test
 	public void readExcelTest() {
@@ -70,5 +74,47 @@ public class TinywebapplicationApplicationTest {
 		DataFile dataFile = dataFileMapper.selectByPrimaryKey(14);
 		int rel = dataBiz.dataPersistence(dataFile);
 		Assert.assertTrue(rel > 0);
+	}
+	
+	@Test
+	public void testStdHandler(){
+		BigDecimal[] avg = new BigDecimal[12];
+		avg[0] = new BigDecimal("1.6244285714");
+		avg[1] = new BigDecimal("90.4285714286");
+		avg[2] = new BigDecimal("1275");
+		avg[3] = new BigDecimal("12.7982857143");
+		avg[4] = new BigDecimal("0.0205714286");
+		avg[5] = new BigDecimal("10.9071428571");
+		avg[6] = new BigDecimal("0.0292857143");
+		avg[7] = new BigDecimal("0.0059285714");
+		avg[8] = new BigDecimal("1008.4285714286");
+		avg[9] = new BigDecimal("38153.4614285714");
+		avg[10] = new BigDecimal("877.5");
+		avg[11] = new BigDecimal("1128.7857142857");
+		
+		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, 3);
+		Assert.assertTrue(std.length > 0);
+	}
+	
+	@Test
+	public void testNsHandler() {
+		BigDecimal[] avg = new BigDecimal[12];
+		avg[0] = new BigDecimal("1.6244285714");
+		avg[1] = new BigDecimal("90.4285714286");
+		avg[2] = new BigDecimal("1275");
+		avg[3] = new BigDecimal("12.7982857143");
+		avg[4] = new BigDecimal("0.0205714286");
+		avg[5] = new BigDecimal("10.9071428571");
+		avg[6] = new BigDecimal("0.0292857143");
+		avg[7] = new BigDecimal("0.0059285714");
+		avg[8] = new BigDecimal("1008.4285714286");
+		avg[9] = new BigDecimal("38153.4614285714");
+		avg[10] = new BigDecimal("877.5");
+		avg[11] = new BigDecimal("1128.7857142857");
+		
+		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, 4);
+		
+		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, 4);
+		Assert.assertTrue(std.length > 0);
 	}
 }

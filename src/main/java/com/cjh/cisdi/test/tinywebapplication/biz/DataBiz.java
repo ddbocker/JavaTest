@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cjh.cisdi.test.tinywebapplication.DataHandler.DataRecordResultHandler;
 import com.cjh.cisdi.test.tinywebapplication.common.BusinessException;
 import com.cjh.cisdi.test.tinywebapplication.common.ComputeUtils;
 import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
@@ -27,6 +28,7 @@ import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
+import com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample;
 import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
@@ -91,6 +93,9 @@ public class DataBiz {
 	
 	@Autowired
 	DataAnalyzeMapperExt dataAnalyzeMapperExt;
+	
+	@Autowired
+	DataRecordResultHandler dataRecordResultHandler;
 	
     /**
      * 批量写入数据库
@@ -269,11 +274,14 @@ public class DataBiz {
 			for (int i = 0; i < avgArr.length; i++) {
 				avgArr[i] = columnSumArr[i].divide(new BigDecimal(count + ""), DATA_SCALE_NO, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 			}
-			// 计算标准差
-			BigDecimal[] stdArr = ComputeUtils.getSampleStd(avgArr, new CsvReader(filePath), count);
 			
-			// 计算离群值
-			int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));
+			//BigDecimal[] stdArr = ComputeUtils.getSampleStd(avgArr, new CsvReader(filePath), count);
+			// 计算标准差,读取数据库处理
+			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, dataFile.getId());
+			
+			//int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));
+			// 计算离群值，读取数据库处理
+			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, dataFile.getId());
 			
 			// 计算因子数
 			int factorNum = columnNsSet.size();
@@ -436,5 +444,5 @@ public class DataBiz {
 	 */
 	public int updateDataFileRecord(DataFile dataFile) {
 		return dataFileMapper.updateByPrimaryKeySelective(dataFile);
-	}
+	}	
 }

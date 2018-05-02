@@ -14,7 +14,7 @@ import com.csvreader.CsvReader;
  */
 public class ComputeUtils {
 	/**
-	 * 计算标准差
+	 * 根据文件计算标准差
 	 * @param avg 样本平均值
 	 * @param csvReader
 	 * @param count 样本个数
@@ -56,7 +56,7 @@ public class ComputeUtils {
 	}
 	
 	/**
-	 * 计算样本离群值
+	 * 根据文件计算样本离群值
 	 * @param avg
 	 * @param std
 	 * @return
@@ -95,4 +95,6 @@ public class ComputeUtils {
 		}
 		return nsArr;
 	}
+	
+	
 }
