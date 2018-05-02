@@ -65,7 +65,8 @@
 		AVG(a9) as a9,
 		AVG(a10) as a10,
 		AVG(a11) as a11,
-		AVG(a12) as a12
+		AVG(a12) as a12,
+		count(distinct quality) as quality
 	    from data_record
 	    where file_recordid = #{fileId}
 	  </select>

@@ -280,7 +280,11 @@ public class DataBiz {
 			BigDecimal[] stdArr = ComputeUtils.getSampleStd(avgArr, new CsvReader(filePath), count);
 			
 			// 计算离群值
-			int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));*/
+			int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));
+			
+			// 计算因子数
+			int factorNum = columnNsSet.size();
+			*/
 			
 			
 			// 计算平均值,读取数据库处理
@@ -289,13 +293,15 @@ public class DataBiz {
 				logger.error(filePath + "从数据库获取数值列平均值失败");
 	        	throw new BusinessException(filePath + "从数据库获取数值列平均值失败");
 			}
+			// 获取因子数
+			int factorNum = Integer.valueOf(avgDataRecord.getQuality());
+			
 			BigDecimal[] avgArr = dataRecordResultHandler.getBigDecimalArr(avgDataRecord);
 			// 计算标准差,读取数据库处理
 			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, dataFile.getId());
 			// 计算离群值，读取数据库处理
 			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, dataFile.getId());
-			// 计算因子数
-			int factorNum = columnNsSet.size();
+			
 			
 			// 构建分析记录列表
 			List<DataAnalyze> dataAnalyzes = new ArrayList<>(columnNameArr.length);
