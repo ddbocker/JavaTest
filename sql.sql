@@ -20,7 +20,8 @@ CREATE TABLE `data_record` (
 `file_recordid` INT NOT NULL COMMENT '文件记录id',
 `createtime`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `updatetime`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-PRIMARY KEY (`id`)
+PRIMARY KEY (`id`),
+KEY `index_file_id` (`file_recordid`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
