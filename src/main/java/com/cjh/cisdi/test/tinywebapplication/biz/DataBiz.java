@@ -269,20 +269,31 @@ public class DataBiz {
 	        	throw new BusinessException("文件数据写入数据库失败");
 	        }
 			logger.info("analyze data begin:" + System.currentTimeMillis());
+			
+			/*
 			// 计算平均值
 			BigDecimal[] avgArr = new BigDecimal[columnSumArr.length];
 			for (int i = 0; i < avgArr.length; i++) {
 				avgArr[i] = columnSumArr[i].divide(new BigDecimal(count + ""), DATA_SCALE_NO, BigDecimal.ROUND_HALF_UP).stripTrailingZeros();
 			}
+			// 计算标准差
+			BigDecimal[] stdArr = ComputeUtils.getSampleStd(avgArr, new CsvReader(filePath), count);
 			
-			//BigDecimal[] stdArr = ComputeUtils.getSampleStd(avgArr, new CsvReader(filePath), count);
+			// 计算离群值
+			int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));*/
+			
+			
+			// 计算平均值,读取数据库处理
+			DataRecord avgDataRecord = dataRecordMapperExt.getSampleAvg(dataFile.getId());
+			if(avgDataRecord == null) {
+				logger.error(filePath + "从数据库获取数值列平均值失败");
+	        	throw new BusinessException(filePath + "从数据库获取数值列平均值失败");
+			}
+			BigDecimal[] avgArr = dataRecordResultHandler.getBigDecimalArr(avgDataRecord);
 			// 计算标准差,读取数据库处理
 			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, dataFile.getId());
-			
-			//int[] nsArr = ComputeUtils.getSampleNs(avgArr, stdArr, new CsvReader(filePath));
 			// 计算离群值，读取数据库处理
 			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, dataFile.getId());
-			
 			// 计算因子数
 			int factorNum = columnNsSet.size();
 			

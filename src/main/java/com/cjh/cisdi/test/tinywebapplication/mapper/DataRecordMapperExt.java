@@ -25,4 +25,11 @@ public interface DataRecordMapperExt {
 	 * @return
 	 */
 	List<DataRecord> getDataRecordsByPage(@Param("fileId") Integer fileId);
+	
+	/**
+	 * 获取样本平均值
+	 * @param fileId
+	 * @return
+	 */
+	DataRecord getSampleAvg(@Param("fileId") Integer fileId);
 }

@@ -28,6 +28,11 @@ public class DataRecordResultHandler {
 	SqlSessionFactory sessionFactory;
 	
 	/**
+	 * 数据分析结果集数组长度
+	 */
+	public final static int ANALYZE_RESULT_ARRAY_SIZE = 12;
+	
+	/**
 	 * 计算样本标准差
 	 * @param example
 	 * @param mapperName
@@ -39,33 +44,33 @@ public class DataRecordResultHandler {
 			return null;
 		}
 		SqlSession session = sessionFactory.openSession();
-		
-		Map<String, Object> param = new HashMap<String, Object>();
+		// 条件查询
 		DataRecordExample example = new DataRecordExample();
 		DataRecordExample.Criteria criteria = example.createCriteria();
 		criteria.andFileRecordidEqualTo(fileId);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("oredCriteria", example.getOredCriteria());
 		
 		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
 		
-		final BigDecimal[] avgFinal = avgArr;
-		
-		final Integer countFinal = count;
-		
 		// 初始化求和数组
-		final BigDecimal[] stdSumArr = new BigDecimal[avgArr.length];
+		final BigDecimal[] stdSumArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		for (int i = 0; i < stdSumArr.length; i++) {
 			stdSumArr[i] = BigDecimal.ZERO;
 		}
+		
+		final BigDecimal[] avgFinal = avgArr;
+		final Integer countFinal = count;
 		// 标准差结果数组
-		final BigDecimal[] stdArr = new BigDecimal[avgFinal.length];
+		final BigDecimal[] stdArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		// 流式处理
 		session.select(mapperName, param, new ResultHandler<DataRecord>() {
 
 			@Override
 			public void handleResult(ResultContext<? extends DataRecord> resultContext) {
 				DataRecord dataRecord = resultContext.getResultObject();
-				BigDecimal[] dataArr = getBigDecimalArr(dataRecord, avgFinal.length);
+				BigDecimal[] dataArr = getBigDecimalArr(dataRecord);
 				
 				for (int i = 0; i < stdSumArr.length; i++) {
 					// 当前列值
@@ -102,23 +107,24 @@ public class DataRecordResultHandler {
 		}
 		SqlSession session = sessionFactory.openSession();
 		
-		Map<String, Object> param = new HashMap<String, Object>();
 		DataRecordExample example = new DataRecordExample();
 		DataRecordExample.Criteria criteria = example.createCriteria();
 		criteria.andFileRecordidEqualTo(fileId);
+		
+		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("oredCriteria", example.getOredCriteria());
 		
 		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
 		
 		// 初始化离群值结果集数组
-		final int[] nsArr = new int[avgArr.length];
+		final int[] nsArr = new int[ANALYZE_RESULT_ARRAY_SIZE];
 		for (int i = 0; i < nsArr.length; i++) {
 			nsArr[i] = 0;
 		}
 		BigDecimal no = new BigDecimal(3 + "");
 		// 计算范围
-		final BigDecimal[] minArr = new BigDecimal[avgArr.length];
-		final BigDecimal[] maxArr = new BigDecimal[avgArr.length];
+		final BigDecimal[] minArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
+		final BigDecimal[] maxArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		
 		for (int i = 0; i < maxArr.length; i++) {
 			minArr[i] = avgArr[i].subtract(stdArr[i].multiply(no));
@@ -131,7 +137,7 @@ public class DataRecordResultHandler {
 			@Override
 			public void handleResult(ResultContext<? extends DataRecord> resultContext) {
 				DataRecord dataRecord = resultContext.getResultObject();
-				BigDecimal[] dataArr = getBigDecimalArr(dataRecord, nsArr.length);
+				BigDecimal[] dataArr = getBigDecimalArr(dataRecord);
 				for (int i = 0; i < nsArr.length; i++) {
 					// 当前列值
 					BigDecimal currentValue = dataArr[i];
@@ -149,11 +155,11 @@ public class DataRecordResultHandler {
 	 * @param dataRecord
 	 * @return
 	 */
-	public BigDecimal[] getBigDecimalArr(DataRecord dataRecord, Integer length) {
+	public BigDecimal[] getBigDecimalArr(DataRecord dataRecord) {
 		if(dataRecord == null) {
 			return null;
 		}
-		BigDecimal[] dataArr = new BigDecimal[length];
+		BigDecimal[] dataArr = new BigDecimal[ANALYZE_RESULT_ARRAY_SIZE];
 		dataArr[0] = dataRecord.getA1();
 		dataArr[1] = dataRecord.getA2();
 		dataArr[2] = dataRecord.getA3();

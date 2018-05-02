@@ -50,5 +50,24 @@
 		<include refid="Base_Column_List" />
 		from data_record where file_recordid = #{fileId}
 	</select>
-
+	
+	<!-- 获取样本数值类型列平均值  -->
+	<select id="getSampleAvg" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+		AVG(a1) as a1,
+		AVG(a2) as a2,
+		AVG(a3) as a3,
+		AVG(a4) as a4,
+		AVG(a5) as a5,
+		AVG(a6) as a6,
+		AVG(a7) as a7,
+		AVG(a8) as a8,
+		AVG(a9) as a9,
+		AVG(a10) as a10,
+		AVG(a11) as a11,
+		AVG(a12) as a12
+	    from data_record
+	    where file_recordid = #{fileId}
+	  </select>
+	
 </mapper>

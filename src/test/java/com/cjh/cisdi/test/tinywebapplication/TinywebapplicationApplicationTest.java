@@ -117,4 +117,11 @@ public class TinywebapplicationApplicationTest {
 		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, 4);
 		Assert.assertTrue(std.length > 0);
 	}
+	
+	@Test
+	public void testAvgHandler() {
+		DataRecord avgDataRecord = dataRecordMapperExt.getSampleAvg(9);
+		BigDecimal[] avg = dataRecordResultHandler.getBigDecimalArr(avgDataRecord);
+		Assert.assertTrue(avg.length > 0);
+	}
 }
