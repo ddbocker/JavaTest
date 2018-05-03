@@ -26,13 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cjh.cisdi.test.tinywebapplication.DataHandler.DataRecordResultHandler;
 import com.cjh.cisdi.test.tinywebapplication.common.BusinessException;
-import com.cjh.cisdi.test.tinywebapplication.common.ComputeUtils;
 import com.cjh.cisdi.test.tinywebapplication.common.ConfigBean;
 import com.cjh.cisdi.test.tinywebapplication.common.CsvUtils;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataAnalyze;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataFile;
 import com.cjh.cisdi.test.tinywebapplication.dao.DataRecord;
-import com.cjh.cisdi.test.tinywebapplication.dao.DataRecordExample;
 import com.cjh.cisdi.test.tinywebapplication.enums.AnalyzeTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileStatusTypeEnum;
 import com.cjh.cisdi.test.tinywebapplication.enums.FileTypeEnum;
@@ -308,17 +306,14 @@ public class DataBiz {
 			
 			// 使用流式遍历数据详情记录
 			sqlSession = sqlSessionFactory.openSession();			
-			DataRecordExample example = new DataRecordExample();
-			DataRecordExample.Criteria criteria = example.createCriteria();
-			criteria.andFileRecordidEqualTo(dataFile.getId());
 			
+			// 条件查询
 			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("oredCriteria", example.getOredCriteria());
-			
-			String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
+			param.put("fileId", dataFile.getId());
+			String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapperExt.getDataRecords";
 			
 			// 获取标准差结果集
-			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, param, sqlSession, example, mapperName);
+			BigDecimal[] stdArr = dataRecordResultHandler.getSampleStd(avgArr, count, param, sqlSession, mapperName);
 			
 			if(stdArr == null) {
 				logger.error(filePath + "计算标准差异常");
@@ -326,7 +321,7 @@ public class DataBiz {
 			}
 			
 			// 获取离群值结果集
-			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, param, sqlSession, example, mapperName);
+			int[] nsArr = dataRecordResultHandler.getSampleNs(avgArr, stdArr, param, sqlSession, mapperName);
 			
 			if(nsArr == null) {
 				logger.error(filePath + "计算离群值异常");

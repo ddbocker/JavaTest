@@ -32,4 +32,11 @@ public interface DataRecordMapperExt {
 	 * @return
 	 */
 	DataRecord getSampleAvg(@Param("fileId") Integer fileId);
+	
+	/**
+	 * 获取所有样本数据(遍历流式处理)
+	 * @param fileId
+	 * @return
+	 */
+	List<DataRecord> getDataRecords(Integer fileId);
 }

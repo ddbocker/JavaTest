@@ -1,7 +1,6 @@
 package com.cjh.cisdi.test.tinywebapplication.DataHandler;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.ResultContext;
@@ -44,8 +43,9 @@ public class DataRecordResultHandler {
 	 * @return
 	 */
 	public BigDecimal[] getSampleStd(BigDecimal[] avgArr, Integer count,  Map<String, Object> param,
-			SqlSession sqlSession, DataRecordExample example, String mapperName) {
-		if (avgArr == null || count == null || count < 0) {
+			SqlSession sqlSession, String mapperName) {
+		if (avgArr == null || count == null || count < 0 || param == null 
+				|| sqlSession == null || StringUtils.isEmpty(mapperName)) {
 			return null;
 		}
 		// 初始化求和数组
@@ -99,9 +99,9 @@ public class DataRecordResultHandler {
 	 * @return
 	 */
 	public int[] getSampleNs(BigDecimal[] avgArr, BigDecimal[] stdArr, Map<String, Object> param,
-			SqlSession sqlSession, DataRecordExample example, String mapperName) {
+			SqlSession sqlSession, String mapperName) {
 		if (avgArr == null || stdArr == null || param == null || 
-				sqlSession == null || example == null || StringUtils.isEmpty(mapperName)) {
+				sqlSession == null || StringUtils.isEmpty(mapperName)) {
 			return null;
 		}
 		

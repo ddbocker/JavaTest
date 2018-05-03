@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cjh.cisdi.test.tinywebapplication.DataHandler.DataRecordResultHandler;
@@ -87,19 +86,13 @@ public class TinywebapplicationApplicationTest {
 	
 	@Test
 	public void testNsHandler() {
-		BigDecimal[] avg = new BigDecimal[12];
-		avg[0] = new BigDecimal("1.6244285714");
-		avg[1] = new BigDecimal("90.4285714286");
-		avg[2] = new BigDecimal("1275");
-		avg[3] = new BigDecimal("12.7982857143");
-		avg[4] = new BigDecimal("0.0205714286");
-		avg[5] = new BigDecimal("10.9071428571");
-		avg[6] = new BigDecimal("0.0292857143");
-		avg[7] = new BigDecimal("0.0059285714");
-		avg[8] = new BigDecimal("1008.4285714286");
-		avg[9] = new BigDecimal("38153.4614285714");
-		avg[10] = new BigDecimal("877.5");
-		avg[11] = new BigDecimal("1128.7857142857");
+		Integer fileId = 11;
+		// 获取样本平均值
+		DataRecord avgDataRecord = dataRecordMapperExt.getSampleAvg(fileId);
+		// 因子数
+		int factorNum = Integer.valueOf(avgDataRecord.getQuality());
+		// 转换为数组
+		BigDecimal[] avg = dataRecordResultHandler.getBigDecimalArr(avgDataRecord);			
 		
 		SqlSession sqlSession = sqlSessionFactory.openSession();			
 		DataRecordExample example = new DataRecordExample();
@@ -107,15 +100,17 @@ public class TinywebapplicationApplicationTest {
 		criteria.andFileRecordidEqualTo(4);
 		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("oredCriteria", example.getOredCriteria());
+		//param.put("oredCriteria", example.getOredCriteria());
+		param.put("fileId", 10);
+		//String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
 		
-		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapper.selectByExample";
+		String mapperName = "com.cjh.cisdi.test.tinywebapplication.mapper.DataRecordMapperExt.getDataRecords";
 		
-		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, param, sqlSession, example, mapperName);
+		BigDecimal[] std = dataRecordResultHandler.getSampleStd(avg, 14, param, sqlSession, mapperName);
 		
-		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, param, sqlSession, example, mapperName);
+		int[] ns = dataRecordResultHandler.getSampleNs(avg, std, param, sqlSession, mapperName);
 		sqlSession.close();
-		Assert.assertTrue(std.length > 0);
+		Assert.assertTrue(ns.length > 0);
 	}
 	
 	@Test
